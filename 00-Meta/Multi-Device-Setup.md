@@ -35,5 +35,10 @@ This vault only holds distilled `memory/*.md` notes — not full chat transcript
 - **Caveat:** for a session to be resumable "as-is" on another PC, that project's actual code folder must exist at the *exact same absolute path* there too (Claude Code identifies a project by its working-directory path). Otherwise the mirrored `.jsonl` files just sit there as reference, not directly resumable.
 - To use on a new device: install Google Drive (skip folder backup), let it sync down `ClaudeCodeSync`, then copy the relevant project's folder from there into that device's own `~/.claude/projects/` if you want to resume it.
 
+## Mobile (Android)
+Tried MGit (git client) + Obsidian mobile for the full vault experience — MGit crashed when changing its root storage location (first clone landed in MGit's private app storage, invisible to Obsidian). Dropped it.
+
+**Final setup: GitHub app only.** Sign in as Rana642, open the `Obsidian-my-2nd-Brain` repo, browse/edit/create files directly, commits go straight to GitHub — desktop picks it up on the next auto-pull. No local vault on phone, but 100% reliable, no crashes, no extra app needed.
+
 ## Devices configured
 - This PC (Abdul Ahad / office-or-home): `E:\Rana Shoaib\My Projects Website\Obsidian my 2nd Brain`
