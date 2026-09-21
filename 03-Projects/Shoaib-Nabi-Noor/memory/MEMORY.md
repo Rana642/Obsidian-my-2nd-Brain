@@ -1,0 +1,25 @@
+# Memory Index
+
+- [Color swap](adsbyshoaib-color-swap.md) — Citrus = 8% accent, Cobalt = 2% highlight (reversed from build doc)
+- [Shoaib's preferences](shoaib-working-preferences.md) — Roman Urdu replies, Fable 5 for build, use "-by shoaib" premium skills
+- [Accountant story](accountant-story-resume-only.md) — accountant background appears on Resume page only, never elsewhere on the site
+- [Build status](adsbyshoaib-build-status.md) — STALE, see note at top of file; site is live, CMS/dashboard/real content all shipped as of 2026-08-24
+- [No indexing until final](adsbyshoaib-no-indexing-until-final.md) — SITE_IS_LIVE=false blocks all SEO indexing; never flip without Shoaib's explicit go-ahead
+- [Resume data](adsbyshoaib-resume-data.md) — real CV wired in lib/resume.ts; work experience still missing; CNIC/father's-name/marital-status excluded on purpose
+- [CMS architecture](adsbyshoaib-cms-architecture.md) — Sanity Studio at /studio manages all content (project m3je8htk), Sanity-first-with-fallback pattern, leads stay in Supabase
+- [Business dashboard](adsbyshoaib-dashboard.md) — /dashboard on Supabase: clients, catalog, quotations, invoices; what stays in Sanity vs here, and why
+- [Aesthetic audit 2026-08-24](adsbyshoaib-aesthetic-audit-2026-08-24.md) — fixed contrast/highlight/overlap bugs; About page industries list still needs Shoaib's review
+- [Privacy policy & API compliance](adsbyshoaib-privacy-policy-api-compliance.md) — Google Business Profile API disclosure added; never paste external AI-drafted legal copy without verifying claims against real code
+- [Perf/cost cleanup 2026-08-24](adsbyshoaib-perf-cost-cleanup-2026-08-24.md) — ISR window 60s→1h (biggest Vercel/Sanity request-volume lever), dead MDX pipeline + unused Card/Container/image-url removed
+- [Socially Snap — TEMPORARY](adsbyshoaib-socially-snap-temporary.md) — "formerly Socially Snap" added to footer/privacy/JSON-LD for GBP rename safety; MUST be reverted once Shoaib confirms the GBP conversion is done
+- [Graphics Studio project](graphics-studio-project.md) — "Graphic Studio by Shoaib", separate app at .../graphics-studio, Phase 1+2 done, uses adsbyshoaib.com's exact brand tokens, blocked on provider billing credits
+- [Graphics Studio MCP server](graphics-studio-mcp-server.md) — local stdio MCP server in graphics-studio/mcp; needs `--conditions=react-server`; user must run `claude mcp add` himself
+- [MCP sync standing rule](graphics-studio-mcp-sync-feedback.md) — every new graphics-studio feature must ship with a matching MCP tool in the same pass
+- [Proposal/Agreement funnel](adsbyshoaib-proposal-agreement-funnel.md) — shared accept/sign cascades, manual/offline controls, discount-on-total (not catalog tiers — that was tried and reverted), "use server" tsx-testing gotcha
+- [Confirm UX before building](shoaib-confirm-ux-before-building.md) — for layout/UX restructuring, describe the design and wait for confirmation before writing code; small fixes don't need this
+- [Verify via local dev server](adsbyshoaib-verify-via-local-dev-server.md) — browser-test uncommitted changes against localhost:3000, never the production domain
+- [Dashboard glass UI](adsbyshoaib-dashboard-glass-ui.md) — glass scoped to dashboard, collapsible sidebar, leads delete; Lightning-CSS backdrop-filter + calc-endpoint transition gotchas
+- [Hostinger Partner](adsbyshoaib-hostinger-partner.md) — verified partner: badge everywhere (trust/footer/about/resume), floating widget, /hostinger-coupon SEO page + Sanity post; code NAWAL20, details in lib/hostinger.ts
+- [Client intake](adsbyshoaib-client-intake.md) — on-demand /intake/[token] forms → Supabase; brand-asset uploads to Cloudflare R2 (provider-agnostic S3, lib/storage.ts); phase 1 of a future client portal
+- [Password vault](adsbyshoaib-vault.md) — zero-knowledge client-credential vault at /dashboard/vault; browser-side AES-256, master password + recovery key, server stores only ciphertext (lib/vault-crypto.ts)
+- [Security hardening](adsbyshoaib-security-hardening.md) — CSP/security headers in proxy.ts, rate-limited public endpoints (rate_limits table); what's covered vs still on Shoaib (Supabase 2FA)

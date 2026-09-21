@@ -1,0 +1,5 @@
+- [Working style](working-style.md) — Roman Urdu, delegates the approach; pick and build rather than offering menus.
+- [Anisa Herbal claims discipline](anisa-herbal-claims-discipline.md) — take mechanics from the competitor reference, never the overclaiming.
+- [Google Ads MCP setup](google-ads-mcp-setup.md) — Ads by Shoaib agency, MCC/customer IDs, patches applied, config backup file location.
+- [Shell tools sandboxed from OS](shell-tools-sandboxed-from-os.md) — Bash/PowerShell env-var changes don't reach the real Windows session; don't retry that fix.
+- [Pending tooling plans](pending-tooling-plans.md) — DataForSEO, OpenSEO-based product, API vault SaaS idea — all explicitly deferred, don't build unprompted.

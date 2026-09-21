@@ -1,0 +1,4 @@
+- [User Profile](user-profile.md) — Rana Shoaib, Urdu-English, step-by-step preference
+- [Confirm Before Acting](feedback-confirm-before-acting.md) — Always explain plan before implementing
+- [Current Status](project-current-status.md) — Steps 1-9 done, Step 10 pending, Instagram import parallel
+- [Instagram Import](project-instagram-import.md) — Meta App created, "Add account" step pending for token

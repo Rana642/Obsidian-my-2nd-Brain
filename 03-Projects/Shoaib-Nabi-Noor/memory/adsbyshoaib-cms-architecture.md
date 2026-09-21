@@ -1,0 +1,33 @@
+---
+name: adsbyshoaib-cms-architecture
+description: "adsbyshoaib.com content is managed in Sanity Studio (/studio) with local fallbacks; leads live in Supabase's own dashboard"
+metadata: 
+  node_type: memory
+  type: project
+  originSessionId: 07de83ef-3bef-4c52-b4bc-5471cb6b2146
+  modified: 2026-08-24T08:44:13.544Z
+---
+
+Shoaib asked (2026-08-22) for one dashboard to manage everything on adsbyshoaib.com. Rather than building a custom admin panel, the existing Sanity Studio at `/studio` was expanded into a full CMS. **Sanity project ID: `m3je8htk`** (org `oav1jexts`), dataset `production`.
+
+**Schemas** (`sanity/schemaTypes/`): post, caseStudy, service, testimonial, faqItem, resumeRole, resumeProject, resumePage (singleton, fixed document ID `resumePage`). Studio sidebar is grouped by content area in `sanity.config.ts`.
+
+**Case studies have an `active` toggle (2026-08-24)** — a Studio-only boolean ("Active (shown on site)", default true) that lets Shoaib take a case study off the public site without deleting it. Both `allCaseStudiesQuery` and `caseStudyBySlugQuery` in `lib/sanity/queries.ts` filter `active != false`, so turning it off removes it from `/case-studies` and 404s its detail page. **Important:** `scripts/migrate-to-sanity.ts`'s `migrateCaseStudies()` reads each doc's current `active` value before `createOrReplace` and writes it back unchanged — this field is Studio-only and must never be hardcoded/overwritten by the migration script, or rerunning it for an unrelated change would silently undo whatever Shoaib toggled. If the same "toggle visibility without deleting" pattern gets requested for other content types, follow this exact preserve-on-rerun approach, not a plain hardcoded field.
+
+**Same toggle added to `resumeRole` and `resumeProject` (2026-08-24)**, requested right after the case-study one. One difference: `getPrimaryRoles()`/`getRemoteProjects()` in `lib/experience.ts` fall back to real hardcoded arrays (not an empty folder) when Sanity returns zero rows, so the `active` filter is applied in the getter (JS `.filter()`), NOT in the GROQ query — filtering in GROQ would make "everything toggled off" indistinguishable from "no Sanity documents yet" and wrongly fall back to showing the hardcoded list. `resumeRolesQuery`/`resumeProjectsQuery` fetch unfiltered (including the `active` field) on purpose; don't add `&& active != false` to those two queries.
+
+**Note from testing (2026-08-24):** while verifying this feature, found `caseStudy-boutique-hotel-multan` ("Hotel Elegant Executive Suite — Multan") and `caseStudy-hotel-silver-sand` already set to `active: false` in production — not something this session did. Almost certainly Shoaib trying the new toggle himself in `/studio` in real time. Left as-is; flagged to him rather than reverted. If a future session finds fewer case studies live than expected, check `active` in Studio before assuming something broke.
+
+**Architecture rule — Sanity-first with fallback:** every data getter (`lib/services.ts`, `lib/case-studies.ts`, `lib/faq.ts`, `lib/testimonials.ts`, `lib/experience.ts`, `lib/resume.ts`, `lib/posts.ts`) queries Sanity and falls back to local constants/MDX when the Studio is empty or a fetch fails. `sanityFetch()` in `lib/sanity/client.ts` returns null on error rather than throwing, and uses a 60s ISR revalidate. **Keep this pattern when adding content types** — it's why the site never breaks mid-migration. Presentational components take data as props; server components own the fetching.
+
+**Leads are NOT in Sanity** — contact form submissions and newsletter signups go to Supabase tables (`contacts`, `subscribers`) and are viewed in Supabase's own dashboard. Don't build a leads UI; that already exists.
+
+**Setup completed 2026-08-22:** CORS origins added (`http://localhost:3000`, `https://adsbyshoaib.com`), `NEXT_PUBLIC_SANITY_PROJECT_ID=m3je8htk` set in both `.env.local` and Vercel. Studio loads its login screen on both local and production; Shoaib logs in with the Sanity account owning the project.
+
+**Canonical domain is the apex `adsbyshoaib.com` (no www)** — decided 2026-08-22. `www.adsbyshoaib.com` 308-redirects to it in Vercel's domain settings. This matters beyond SEO: Sanity CORS is exact-match per origin, so serving from www would break the Studio unless a second origin were added. If the domain setup is ever changed, `siteUrl` in `lib/seo.ts` and the Sanity CORS origins must both be updated to match.
+
+**Content migrated 2026-08-22** via `scripts/migrate-to-sanity.ts` (`npm run migrate:sanity`, idempotent — deterministic IDs like `service-meta-ads`, safe to rerun). Shoaib can edit everything in `/studio`. `SANITY_API_TOKEN` (Editor permission, in `.env.local`, gitignored) is needed to rerun the script.
+
+**Important lesson (2026-08-22):** the original 5 case studies were Phase-4 GENERIC PLACEHOLDERS (invented outcomes like "+300% bookings") written before Shoaib's real work history existed. When his real resume data arrived later, nobody went back and reconciled the case studies against it — they stayed placeholder-fake even after the resume was real. Shoaib caught this by looking at the live site. **Lesson: when new real data arrives (resume, client list, etc.), proactively check whether earlier placeholder content elsewhere on the site (case studies, testimonials, About page industries list) should be reconciled against it — don't wait for him to notice the mismatch.** Case studies are sourced directly from `lib/experience.ts`, one per brand/client, never grouped under a parent company (his explicit rule: "har project ki apni importance hai") — **except** for one deliberate exception added 2026-08-24: an "Avenza Group of Companies" group-level overview card also exists alongside the 8 individual Avenza brand cards, listing all brands plus the corporate recruitment/hiring ad work, per Shoaib's explicit request. Testimonials (3, still placeholder) and the About page's industries list have NOT yet been checked against the real data — worth reviewing next.
+
+**Case study ordering (2026-08-24):** the `caseStudy` schema has no manual `order` field (unlike service/resumeRole/resumeProject/testimonial/faqItem, which do) — the public list sorts by `publishedAt desc`. To rank specific case studies, `scripts/migrate-to-sanity.ts`'s `realCaseStudies` array sets `publishedAt` dates accordingly rather than adding a new field. Current pinned order per Shoaib's request: Avenza Group #1 (`2025-10-01`), Al Mannan Builders #2 (`2025-09-15`), Toni&Guy Multan #3 (`2025-09-01`), rest unordered/unchanged. If Shoaib asks to reorder again, adjust dates the same way (or consider adding a real `order` field if this keeps recurring).

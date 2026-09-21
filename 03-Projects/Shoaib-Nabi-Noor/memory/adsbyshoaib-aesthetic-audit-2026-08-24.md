@@ -1,0 +1,21 @@
+---
+name: adsbyshoaib-aesthetic-audit-2026-08-24
+description: "Aesthetic/visual-hierarchy audit found 3 real bugs (contrast, broken highlight pattern, overlap) — fixed and pushed; About page industries list still unreconciled"
+metadata: 
+  node_type: memory
+  type: project
+  originSessionId: 07de83ef-3bef-4c52-b4bc-5471cb6b2146
+  modified: 2026-08-24T07:13:52.142Z
+---
+
+Shoaib asked (2026-08-24) for an aesthetic + visual hierarchy audit using the Claude in Chrome browser extension, explicitly "only -by shoaib skills" — used `premium-web-design-by-shoaib` as the framework (Hero, Visual Hierarchy, Whitespace, Contrast, Social Proof Placement, Typography, Mobile). Audited all public pages live + locally, found and fixed 3 real bugs (commit `ef28b57`):
+
+1. **Turn.tsx contrast bug** — the emphasized word "assembles" on the dark "Turn" section was hardcoded `text-ink` (near-black) on the section's own near-black background — nearly invisible. Root cause: the citrus "marker highlight" pattern (an absolutely-positioned citrus bar behind a word, used correctly in Hero.tsx for "fully assembled" on a *light* background) was copy-pasted into a *dark*-background section without adjusting the text color.
+
+2. **Broken citrus-highlight-bar pattern, duplicated 6x** — same absolutely-positioned bar technique, sized to the widest wrapped line via `inset-x-0` on an `inline-block` parent. Works for a single word/short line; breaks for anything that wraps 2+ lines (case study outcomes, service taglines) — produces a highlight box that visually looks like it's covering arbitrary/wrong substrings. Fixed everywhere with Tailwind's `box-decoration-clone`, which gives each wrapped line its own correctly-fitted background. **Lesson: if this "citrus marker highlight" effect is used again on any user-editable/variable-length text (Sanity content), use `box-decoration-clone` from the start — never the absolute-position-behind-inline-block trick, since Sanity content length is never guaranteed to fit one line.**
+
+3. **Resume page sticky download bar overlapped body text** — confirmed via `getBoundingClientRect()` (not a rendering artifact) that the sticky "Download PDF resume" button had no backdrop and overlapped/clipped running text for nearly the entire scroll length of the page (its containing block spans the whole page, so it's effectively stuck for ~90% of the read). Fixed by making it a full-width bar with `bg-cloud/90 backdrop-blur-sm border-t` so it reads as intentional sticky-footer chrome instead of a layout glitch.
+
+**Testing-environment lesson**: Claude in Chrome (real Chrome, the user's own browser) has ~15 installed extensions that severely degrade page-load timing (~13s first-contentful-paint measured live) and even produced visible rendering ghosting during scroll-triggered animations. A clean check via `npm start` + the sandboxed in-app Browser tool measured ~150ms DOMContentLoaded on the same code — confirming the slowness was extension noise, not a real site defect. **Lesson: never trust load-timing measurements taken in the real-Chrome tool; only trust visual/layout/contrast findings there, and cross-check anything timing-related (or anything that looks like a one-off glitch, e.g. ghosting) against a clean environment (local prod build + sandboxed browser, or `getBoundingClientRect`/computed-style JS checks) before reporting it as a bug.**
+
+**Not yet fixed — flagged for Shoaib, not silently changed:** the About page's "8 industries" grid (Hospitality, Real Estate, E-commerce & Fashion, Pharma & Healthcare, Legal Services, Education, Home & Local Services, B2B) doesn't fully match the real case-study/experience data — missing Salon & Beauty (2 real case studies: Toni&Guy Multan, Choppers Salon), Events (Eventia 360), Restaurant (Trönninge Pizza), and Immigration & Relocation (Come Live In France), while "Home & Local Services" doesn't clearly map to any specific real client. This is the same category of issue flagged in [[adsbyshoaib-cms-architecture]]'s "important lesson" note — content accuracy, not aesthetics — so it needs Shoaib's decision (which industries to actually list, since "8 industries" is also used as a hero stat elsewhere) rather than a unilateral rewrite.
