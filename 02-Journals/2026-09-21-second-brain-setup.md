@@ -13,3 +13,8 @@ date: 2026-09-21
 - Added `00-Meta/Projects-Index.md` so every project links back to one place — one vault, one graph, not fragmented islands.
 - Set up automatic cross-device context: `~/.claude/CLAUDE.md` (global, per-machine) tells Claude to check this vault's `03-Projects/<name>/` before starting work on any matching project. See `00-Meta/Multi-Device-Setup.md` for the per-device setup steps.
 - Jarvis vault (pre-existing, separate) — decision on merge vs. keep separate still pending.
+
+## 2026-09-23 — New device connected
+- Cloned vault onto this PC, installed Obsidian, confirmed `obsidian-git` plugin loads and shows `main` branch clean.
+- Set local git identity (name/email) on this PC — none was configured yet.
+- Verified push round-trip works end-to-end (this entry) via cached Windows Credential Manager auth — no OAuth app, no manual token entry.
