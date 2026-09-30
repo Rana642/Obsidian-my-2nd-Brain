@@ -236,6 +236,28 @@ Phase 3 (Asset-Locked track for real estate/product photos) per
 `docs/PLAN.md`. Enhancer/upscaler quality (Higgsfield-parity, see the
 reminder above) is still Phase 5/deferred but must not be dropped.
 
+**Update 2026-09-24: repo moved from `E:\...` to `D:\Rana Shoaib\My Projects
+Website\graphics-studio`** — the MCP registration command in README.md still
+has the old `E:/...` path, re-register with the `D:/...` path if reinstalling.
+MCP server registered successfully by Shoaib (2026-09-24) via
+`claude mcp add graphics-studio --scope user`. Credits still NOT added on
+any provider (Google AI Studio, OpenAI, Topaz) as of 2026-09-24 — real
+generation is still blocked purely on billing, not code. **Do not assume
+credits are live without Shoaib explicitly saying so.**
+
+**Video generation (2026-09-24, new scope, not built yet)**: Shoaib confirmed
+he also wants **Seedance** (ByteDance's video model, likely via Fal.ai or
+Replicate — needs research on exact API) added as a video-generation
+provider, alongside Google **Veo** (same Google AI Studio account as Nano
+Banana) as a second option. This is a genuinely new capability, not part of
+Phase 2/3/image work — will need its own `lib/video-providers/` abstraction
+(mirroring `lib/image-providers/`), schema additions (a `video_generations`
+table or a `media_type` column on `generations`), and matching MCP tool(s)
+(e.g. `studio_generate_video`) per the standing MCP-sync rule
+([[graphics-studio-mcp-sync-feedback]]). Sequencing: get the existing image
+pipeline live-tested with real credits first, then start video as its own
+phase — don't interleave until image path is proven end-to-end.
+
 **Costing views added (2026-08-25, commit `bf0b206`)** — `/costs` (all-brands
 overview) and `/brands/[id]/costs` (per-generation breakdown + a live
 sale-price/margin calculator), reading `generations.est_cost_usd` which

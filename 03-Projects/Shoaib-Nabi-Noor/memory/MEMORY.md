@@ -1,7 +1,8 @@
 # Memory Index
 
-- [Color swap](adsbyshoaib-color-swap.md) — Citrus = 8% accent, Cobalt = 2% highlight (reversed from build doc)
-- [Shoaib's preferences](shoaib-working-preferences.md) — Roman Urdu replies, Fable 5 for build, use "-by shoaib" premium skills
+- [Color swap](adsbyshoaib-color-swap.md) — current hex values (Citrus #FEC107, Cobalt #2196F3 decorative-only, Forest #3FA343) as of 2026-09-15 rebrand
+- [Logo rebrand 2026-09-15](adsbyshoaib-logo-rebrand-2026-09-15.md) — real designer logo replaced CSS-text wordmark everywhere; SVG mark-extraction technique; icon.svg/OG image still old-shape
+- [Shoaib's preferences](shoaib-working-preferences.md) — Roman Urdu replies, Fable 5 for build, "-by shoaib" premium skills (NOT installed on the new PC/Pro account as of 2026-09-13)
 - [Accountant story](accountant-story-resume-only.md) — accountant background appears on Resume page only, never elsewhere on the site
 - [Build status](adsbyshoaib-build-status.md) — STALE, see note at top of file; site is live, CMS/dashboard/real content all shipped as of 2026-08-24
 - [No indexing until final](adsbyshoaib-no-indexing-until-final.md) — SITE_IS_LIVE=false blocks all SEO indexing; never flip without Shoaib's explicit go-ahead
@@ -11,7 +12,8 @@
 - [Aesthetic audit 2026-08-24](adsbyshoaib-aesthetic-audit-2026-08-24.md) — fixed contrast/highlight/overlap bugs; About page industries list still needs Shoaib's review
 - [Privacy policy & API compliance](adsbyshoaib-privacy-policy-api-compliance.md) — Google Business Profile API disclosure added; never paste external AI-drafted legal copy without verifying claims against real code
 - [Perf/cost cleanup 2026-08-24](adsbyshoaib-perf-cost-cleanup-2026-08-24.md) — ISR window 60s→1h (biggest Vercel/Sanity request-volume lever), dead MDX pipeline + unused Card/Container/image-url removed
-- [Socially Snap — TEMPORARY](adsbyshoaib-socially-snap-temporary.md) — "formerly Socially Snap" added to footer/privacy/JSON-LD for GBP rename safety; MUST be reverted once Shoaib confirms the GBP conversion is done
+- [Socially Snap — TEMPORARY](adsbyshoaib-socially-snap-temporary.md) — "formerly Socially Snap" on footer/privacy/JSON-LD; the GBP-rename plan was abandoned 2026-09-13, so the wording is now inaccurate; await Shoaib's reword-or-remove call
+- [Socially Snap site](sociallysnap-site.md) — separate repo .../sociallysnap for sociallysnap.adsbyshoaib.com (GBP API website); logo palette #fac152 + black; noindex; GitHub/Vercel/DNS still pending
 - [Graphics Studio project](graphics-studio-project.md) — "Graphic Studio by Shoaib", separate app at .../graphics-studio, Phase 1+2 done, uses adsbyshoaib.com's exact brand tokens, blocked on provider billing credits
 - [Graphics Studio MCP server](graphics-studio-mcp-server.md) — local stdio MCP server in graphics-studio/mcp; needs `--conditions=react-server`; user must run `claude mcp add` himself
 - [MCP sync standing rule](graphics-studio-mcp-sync-feedback.md) — every new graphics-studio feature must ship with a matching MCP tool in the same pass
@@ -19,7 +21,22 @@
 - [Confirm UX before building](shoaib-confirm-ux-before-building.md) — for layout/UX restructuring, describe the design and wait for confirmation before writing code; small fixes don't need this
 - [Verify via local dev server](adsbyshoaib-verify-via-local-dev-server.md) — browser-test uncommitted changes against localhost:3000, never the production domain
 - [Dashboard glass UI](adsbyshoaib-dashboard-glass-ui.md) — glass scoped to dashboard, collapsible sidebar, leads delete; Lightning-CSS backdrop-filter + calc-endpoint transition gotchas
-- [Hostinger Partner](adsbyshoaib-hostinger-partner.md) — verified partner: badge everywhere (trust/footer/about/resume), floating widget, /hostinger-coupon SEO page + Sanity post; code NAWAL20, details in lib/hostinger.ts
+- [Hostinger Partner](adsbyshoaib-hostinger-partner.md) — verified partner: badge in footer/about/resume + floating widget (removed from home trust strip, proposals, agreements 2026-09-28), /hostinger-coupon SEO page + Sanity post; code NAWAL20, details in lib/hostinger.ts
 - [Client intake](adsbyshoaib-client-intake.md) — on-demand /intake/[token] forms → Supabase; brand-asset uploads to Cloudflare R2 (provider-agnostic S3, lib/storage.ts); phase 1 of a future client portal
 - [Password vault](adsbyshoaib-vault.md) — zero-knowledge client-credential vault at /dashboard/vault; browser-side AES-256, master password + recovery key, server stores only ciphertext (lib/vault-crypto.ts)
 - [Security hardening](adsbyshoaib-security-hardening.md) — CSP/security headers in proxy.ts, rate-limited public endpoints (rate_limits table); what's covered vs still on Shoaib (Supabase 2FA)
+- [API Vault](adsbyshoaib-api-vault.md) — /dashboard/api-vault: Google Ads/Meta/GA4/GTM/GSC/GMB credentials, AES-256-GCM server-decryptable (separate from the zero-knowledge password vault), for a future MCP; needs API_VAULT_ENCRYPTION_KEY added to Vercel still; new scripts/run-sql.mjs + SUPABASE_DB_URL for direct migrations (local-only, never add to Vercel)
+- [GBP API application](adsbyshoaib-gbp-api-application.md) — APPROVED 2026-09-29 (case 5-2799000041097, project 875327223530, 300 QPM); on GCP project "Socially Snap" (socially-snap), NOT ads-by-shoaib-crm; GBP integration now LIVE (see GBP integration); no "Google partner" claims
+- [LinkedIn CM API application](adsbyshoaib-linkedin-cm-api-application.md) — submitted ~2026-09-19 after NTN; pending; 48h member-data storage rule + no exporting to clients
+- [Social media poster](adsbyshoaib-social-poster.md) — /dashboard/social Planner + Insights + MCP; FB/IG/LinkedIn/TikTok; FB native scheduling, TikTok async publish+verified-domain media proxy; Vercel Hobby cron trap
+- [Remote MCP OAuth server](adsbyshoaib-mcp-remote-oauth.md) — /api/mcp lets Claude web/mobile connect via OAuth 2.1; 303-redirect + CSP form-action + Vercel signing-key gotchas already fixed, don't redebug
+- [Socially Snap SaaS plan](socially-snap-saas-plan.md) — 2026-09-24: new multi-tenant app (Studio + Planner + Knowledge Base + WhatsApp API), Planner stays on adsbyshoaib until approvals land, partner-program-ready design
+- [Tad Pharma knowledge base](adsbyshoaib-tad-pharma-knowledge-base.md) — brand/products KB via kb_* MCP; ORIGINAL-ONLY rule (no AI packshots, nothing beyond brochure); all 17 Urdu verified + typed Jameel Noori page 3 (2026-09-28)
+- [NAP from website only](feedback-nap-from-website-only.md) — any brand: contact details only from the official website, never PDFs/labels, never inside branding docs
+- [Marketing API MCP tools](adsbyshoaib-mcp-marketing-tools.md) — Google Ads/Meta Ads/GA4/GSC/GTM full read+write via generic passthrough tools, confirm=true gate on every write, on both local+remote MCP
+- [Home redesign 2026-09-28](adsbyshoaib-home-redesign-2026-09-28.md) — problem-first home + keyword H1 (f1b8f2b), cutout portrait; waiting on case-study numbers/WhatsApp/FAQ answers; Solutions pages next
+- [Setups](adsbyshoaib-setups.md) — /setups: 8 fixed-scope setup services + order form; prices/delivery still null awaiting Shoaib
+- [Meezab knowledge base](meezab-knowledge-base.md) — Meezab Z. Intl KB (same client as Tad), built in DB not git; pack+PDF are sources, pack wins on conflict; logo lockups built; only website fixes left
+- [GBP integration](adsbyshoaib-gbp-integration.md) — /dashboard/gbp + gbp_* MCP tools LIVE 2026-09-30: connect/reuse grant, reviews + replies, Planner posts + Connections tile, gbp_* MCP; branding verification pending
+- [Google-friendly pace](feedback-google-friendly-pace.md) — GBP replies/posts never bulk: 5-min gap + 20/location/day via paceGbpWrite; every new GBP write must use it
+- [Client portal](adsbyshoaib-client-portal.md) — /portal in the dashboard glass shell + Planner client mode (2026-09-30); sidebar grouped into sections and scrollable

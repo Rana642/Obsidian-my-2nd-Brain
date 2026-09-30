@@ -70,3 +70,8 @@ in the offscreen preview pane, so badges showed `naturalWidth: 0` there —
 but the optimizer served them 200 and a fresh `new Image()` loaded at w=320,
 so it's the same non-composited-pane artifact, not a real bug. See
 [[adsbyshoaib-dashboard-glass-ui]] and [[adsbyshoaib-verify-via-local-dev-server]].
+
+**Agency Directory application (2026-09-21):** Shoaib applied to Hostinger's Agency Directory (public profile + inbound leads in hPanel Agency Hub, free to join). Requirements per Hostinger: professional site, work-email domain matching the site (not Gmail; info@adsbyshoaib.com fits), company name listed; to keep Partner status he must refer at least $100 revenue via the Referral Program. Description drafted from real resume facts (6+ yrs, $2.5M+ ad spend, PK/FR/SE clients), first person, "independent practice". Listed budget "Under $1k" and rate "$25-50/hour" are public — he was asked to confirm they match real rates before submitting. Outcome unknown.
+
+
+**2026-09-28 update:** at Shoaib's request the badge + "verified Hostinger Partner / 20% discount" line was REMOVED from proposals (ProposalPreview) and agreements (AgreementBody) — "har jagah mention kerny ki zarorat nai". Also off the home trust strip; still in footer, about, resume, /hostinger-coupon and the floating widget (small badge, opens on tap).
