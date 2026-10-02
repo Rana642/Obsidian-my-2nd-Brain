@@ -40,3 +40,4 @@
 - [GBP integration](adsbyshoaib-gbp-integration.md) — /dashboard/gbp + gbp_* MCP tools LIVE 2026-09-30: connect/reuse grant, reviews + replies, Planner posts + Connections tile, gbp_* MCP; branding verification pending
 - [Google-friendly pace](feedback-google-friendly-pace.md) — GBP replies/posts never bulk: 5-min gap + 20/location/day via paceGbpWrite; every new GBP write must use it
 - [Client portal](adsbyshoaib-client-portal.md) — /portal in the dashboard glass shell + Planner client mode (2026-09-30); sidebar grouped into sections and scrollable
+- [Video Studio](graphics-studio-video-studio.md) — Graphic Studio + video-use fork (2026-10-02): branded captions/end-card, studio_video_* MCP; needs ElevenLabs key + video_generations SQL run
