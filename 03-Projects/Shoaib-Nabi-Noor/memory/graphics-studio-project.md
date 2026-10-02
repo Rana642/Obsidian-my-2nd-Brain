@@ -129,10 +129,9 @@ Pro) and OpenAI API key (GPT Image) — both env var slots already exist in
 next resumes).
 
 **Update 2026-08-25: Phase 2 (Creative Track) built and committed** (`70fb5f2`).
-Both API keys obtained and wired into `.env.local` — Gemini key
-`AIzaSyA18p7qxrYCgOAgKOI9j3nkEsI7i2HZu04` (project ref `cdbrmhmkgjdarvouceey`
+Both API keys obtained and wired into `.env.local` — Gemini key (value lives only in `.env.local` — never write keys into memory; the original was auto-disabled by Google on 2026-10-02 as leaked, because this note was in the public vault repo) (project ref `cdbrmhmkgjdarvouceey`
 matches the Supabase project's — coincidence, different services), OpenAI
-key starting `sk-proj-JoRF...`. **Confirmed live model IDs** (don't
+key in `.env.local`. **Confirmed live model IDs** (don't
 re-guess these, verify via `/v1beta/models` or `/v1/models` again if they
 ever 404):
 - Nano Banana family: `gemini-3-pro-image` (Pro/premium), `gemini-3.1-flash-image`
