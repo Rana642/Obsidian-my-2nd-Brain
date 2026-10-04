@@ -75,3 +75,4 @@ Account IDs:
     - Rollout gotcha: DB prices and the pricing code must flip together. While old code was live with new prices, the site would have undercharged 26%, so the rates were reverted until the deploy landed.
     - Watcher gotcha: React splits numbers with comment nodes, so grep for a static label, not "(26%)".
   - 2026-10-05: Early Booking and Long Stay deals were raised to 25% off standard (offer = 20%, so the deals beat it). The booking page payment wording now follows the active deal (commit 253d0cc).
+  - 2026-10-05 payment/cancellation LOCKED: regular rate = pay at the hotel, advance optional; deals = FULL payment in advance by bank transfer; both get free cancellation and a 100% refund at any time. Site wording unified (commits d238e5f, 2f3648d). Last Minute 30% renewed to 2026-12-31 (Thu–Sat check-in, booked 3 pm–midnight PKT). Deal priority Early > Long Stay > Last Minute.
