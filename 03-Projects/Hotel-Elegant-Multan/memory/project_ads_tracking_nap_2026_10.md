@@ -41,4 +41,11 @@ Work done on 2026-10-04 from the adsbyshoaib session. The full detail is in the 
 
 **How to apply:** check `docs/TRACKING.md` and the KB `fix-checklist` before touching tracking or ads. Local dev uses the production DB, so never submit test bookings.
 
-- **2026-10-05 rate parity (live, commit 0637d79):** website is tax-exclusive like Booking.com. Standard = Booking.com standard, offer = Genius 3 (-20
+- **2026-10-05 rate parity (live, commit 0637d79):** website is tax-exclusive like Booking.com. Standard = Booking.com standard, offer = Genius 3 (-20- **2026-10-05 deals and payment (live):**
+  - Early Booking 25% (≥7 days ahead).
+  - Long Stay 25% (3+ nights).
+  - Last Minute 30%: check-in today or tomorrow, Thu–Sat, booked 3 pm–midnight, until 2026-12-31.
+  - The biggest discount wins, and a deal applies only if it beats the 20% offer.
+  - Payment: regular rate pays at the hotel (advance optional); deals are paid in full in advance.
+  - Free cancellation and a 100% refund at any time on both.
+  - Full detail: `docs/PRICING.md` in the website repo.
