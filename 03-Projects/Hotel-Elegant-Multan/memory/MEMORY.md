@@ -10,3 +10,4 @@
 - [Correct Google Ads account ID](reference_google_ads_account_id.md) — Hotel Elegant's real account is customer 6223250696; a same-named but unrelated/suspended account (6684011164) exists too, don't confuse them.
 - [Google Ads must stay directly wired](feedback_gads_direct_connection_only.md) — never GTM or an indirect pipeline; direct gtag only, permanently.
 - [GA4↔Google Ads cross-verify method](project_ga4_google_ads_cross_verify_method.md) — use gclid auto-tagging (session source/medium/campaign) to cross-check, not UTM params, not GA4-imported conversion actions.
+- [Ads, tracking & NAP — 2026-10-04](project_ads_tracking_nap_2026_10.md) — NAP locked to GBP; KB + audits; GA4/Google Ads/Meta tracking fixed and live; Meta Purchase at submit; goal cleanup blocked on permissions

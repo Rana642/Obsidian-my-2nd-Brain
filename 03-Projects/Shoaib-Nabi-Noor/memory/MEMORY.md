@@ -41,3 +41,6 @@
 - [Google-friendly pace](feedback-google-friendly-pace.md) — GBP replies/posts never bulk: 5-min gap + 20/location/day via paceGbpWrite; every new GBP write must use it
 - [Client portal](adsbyshoaib-client-portal.md) — /portal in the dashboard glass shell + Planner client mode (2026-09-30); sidebar grouped into sections and scrollable
 - [Video Studio](graphics-studio-video-studio.md) — Graphic Studio + video-use fork (2026-10-02): branded captions/end-card, studio_video_* MCP; needs ElevenLabs key + video_generations SQL run
+- [Hotel Elegant knowledge base](hotel-elegant-knowledge-base.md) — KB built 2026-10-04 (website + live hotel DB + repo): 5 rooms, 30 assets, audits/playbook/fix-checklist docs; goal = ads bookings, no calendar for now
+- [Hotel Elegant NAP — LOCKED](hotel-elegant-nap-locked.md) — GBP is the standard: exact GBP name/address/phone everywhere (website, social, OTAs); never change GBP; mismatches in KB nap-consistency-audit
+- [Hotel Elegant ads & tracking](hotel-elegant-ads-audit-2026-10.md) — audit + shipped tracking fixes (repo commits 2026-10-04); Meta Purchase fires at SUBMIT (never move to confirm); GAds needs MCC 8859347478; goal cleanup blocked (no Meta Advertise perm)
