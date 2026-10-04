@@ -76,3 +76,5 @@ Account IDs:
     - Watcher gotcha: React splits numbers with comment nodes, so grep for a static label, not "(26%)".
   - 2026-10-05: Early Booking and Long Stay deals were raised to 25% off standard (offer = 20%, so the deals beat it). The booking page payment wording now follows the active deal (commit 253d0cc).
   - 2026-10-05 payment/cancellation LOCKED: regular rate = pay at the hotel, advance optional; deals = FULL payment in advance by bank transfer; both get free cancellation and a 100% refund at any time. Site wording unified (commits d238e5f, 2f3648d). Last Minute 30% renewed to 2026-12-31 (Thu–Sat check-in, booked 3 pm–midnight PKT). Deal priority Early > Long Stay > Last Minute.
+  - 2026-10-05: deal selection now picks the highest discount % (priority only breaks ties), in lib/deals.ts. Side effect: Last Minute (30%, no lead-time limit) wins any Thu–Sat check-in booked 3 pm–midnight, even weeks ahead.
+  - 2026-10-05 final: Last Minute is limited to check-in today/tomorrow (DB lead_time_type=last_minute, lead_time_days=1), plus Thu–Sat and 3 pm–midnight PKT, until 2026-12-31. Promotions label reads 'Check-in today or tomorrow' (commit 945c3c7).
