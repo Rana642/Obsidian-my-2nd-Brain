@@ -49,3 +49,11 @@ Work done on 2026-10-04 from the adsbyshoaib session. The full detail is in the 
   - Payment: regular rate pays at the hotel (advance optional); deals are paid in full in advance.
   - Free cancellation and a 100% refund at any time on both.
   - Full detail: `docs/PRICING.md` in the website repo.
+- **2026-10-05 one-page booking (live, Zehneria-style):**
+  - Room cards open a dates popup that lands on /reservations with the chosen room first.
+  - Book Now opens the compact guest form on the same page:
+    - Full name, phone + email, Terms popup.
+    - "Book Now & Pay at Hotel / in Advance".
+    - Sidebar "Your Booking Details" with Pay Now / Balance.
+  - Commits 0b12714, c231548, 2def6f6.
+  - Details: `docs/PRICING.md` → Booking flow.
