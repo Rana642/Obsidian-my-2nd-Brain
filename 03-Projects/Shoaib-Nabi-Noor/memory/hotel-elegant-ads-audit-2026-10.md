@@ -85,3 +85,14 @@ Account IDs:
     - Dev gotcha: 'Invalid hook call / useContext null' after hot reload is an HMR glitch; restart the dev server.
   - 2026-10-05 compact booking form (commit c231548): Full name (split for CAPI), Phone + Email on one row, terms checkbox that also confirms Multan, 'Book Now & Pay at Hotel / in Advance' button, sidebar 'Your Booking Details' with Pay Now / Balance and the saving. BookingForm takes an 'embedded' prop that hides the in-form summary on /reservations.
   - 2026-10-05: Terms & Conditions open in a popup on the booking form (7 hotel terms; 'I Agree' ticks the checkbox), commit 2def6f6. The booking flow is documented in docs/PRICING.md of the hotel repo.
+  - 2026-10-05 CRO pass (ads NOT launching yet; Shoaib said fixes first):
+    - LP deal copy synced (5f61ec6). `lib/lpConfig.ts` LP_PROMOTIONS is hand-kept and must follow promotion changes.
+    - Reservations card payment label follows the deal (2416fcc).
+    - Commit 4f634bb:
+      - **Deals pay AFTER booking.** No screenshot needed at submit; the booking stays pending. The thank-you page has AdvancePaymentBox (bank details, upload via actions/paymentProof.ts, which emails the hotel, plus WhatsApp). The hotel confirms only after the transfer is verified.
+      - Mobile booking form is fields-first, with a compact total.
+      - Mobile reservations search bar collapses to "dates · Modify".
+      - The thank-you payment box is untested end to end: it needs a real deal booking, cancelled afterwards, ideally together with the Meta test-event check.
+    - Lighthouse can't run: Hostinger 403s it. Ad crawlers get 200.
+    - Speed is fine: TTFB 0.28s, CLS 0.
+

@@ -57,3 +57,11 @@ Work done on 2026-10-04 from the adsbyshoaib session. The full detail is in the 
     - Sidebar "Your Booking Details" with Pay Now / Balance.
   - Commits 0b12714, c231548, 2def6f6.
   - Details: `docs/PRICING.md` → Booking flow.
+- **2026-10-05 CRO pass (ads on hold until fixes are done):**
+  - Deals now pay **after** booking. The thank-you page shows "Complete Your Payment": bank details, screenshot upload (emails the hotel) or WhatsApp. The booking stays pending until the transfer is verified.
+  - Mobile booking form is fields-first, with a compact total.
+  - Mobile reservations search collapses to "dates · Modify".
+  - LP deal copy synced.
+  - Commits 5f61ec6, 2416fcc, 4f634bb.
+  - The payment box still needs one real test booking.
+
