@@ -74,3 +74,4 @@ Account IDs:
     - Deploy gotcha: a push made during a DNS blip never reached Hostinger; an empty commit re-triggered it.
     - Rollout gotcha: DB prices and the pricing code must flip together. While old code was live with new prices, the site would have undercharged 26%, so the rates were reverted until the deploy landed.
     - Watcher gotcha: React splits numbers with comment nodes, so grep for a static label, not "(26%)".
+  - 2026-10-05: Early Booking and Long Stay deals were raised to 25% off standard (offer = 20%, so the deals beat it). The booking page payment wording now follows the active deal (commit 253d0cc).
