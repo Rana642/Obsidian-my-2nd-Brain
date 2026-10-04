@@ -59,3 +59,18 @@ Account IDs:
   - Phone display format on the website = GBP "0317 3330998" / "+92 317 3330998" (commit ba14736, plus settings.hotel_phone in the DB). tel:, wa.me and schema keep +923173330998.
   - **Meta Purchase fires at booking submit** (thank-you Pixel + server CAPI, event_id booking-purchase-<ref>; commit ef3e97e). A confirm-time Purchase (cb2d240) was tried and REVERTED the same day: Shoaib said too few bookings would keep Meta stuck in learning and slow confirmations would lose signal. Never move Purchase to confirm again. Staff-entered bookings also send Purchase, without staff cookies/IP. StayCompleted fires on completion.
   - Fixed in commit e532ebd: ContactIntentButton only sent GA4 whatsapp_click/call_click when the caller passed onClick (LP CTAs). Now every site button sends them. Live-verified on 2026-10-04: room page view_room; Call/WhatsApp → GA4 + Ads + Meta Contact; Book Now → GA4 + Meta InitiateCheckout. Not live-verifiable without a real booking: the thank-you events and server CAPI Lead/Purchase/StayCompleted (needs a Meta Test Events code).
+  - **2026-10-05 rate parity, live (website commit 0637d79):** the website is tax-EXCLUSIVE like Booking.com (lib/pricing.ts). The DB rooms table holds pre-tax rates:
+
+    | Room | Standard | Offer |
+    |---|---|---|
+    | King | 7,500 | 6,000 |
+    | Family | 14,000 | 11,200 |
+    | Triple | 12,000 | 9,600 |
+    | Presidential | 16,000 | 12,800 |
+    | Junior | 13,000 | 10,400 |
+
+    - Standard = Booking.com standard; offer = Genius 3 (-20%).
+    - A promotion deal now applies only if it beats the offer.
+    - Deploy gotcha: a push made during a DNS blip never reached Hostinger; an empty commit re-triggered it.
+    - Rollout gotcha: DB prices and the pricing code must flip together. While old code was live with new prices, the site would have undercharged 26%, so the rates were reverted until the deploy landed.
+    - Watcher gotcha: React splits numbers with comment nodes, so grep for a static label, not "(26%)".

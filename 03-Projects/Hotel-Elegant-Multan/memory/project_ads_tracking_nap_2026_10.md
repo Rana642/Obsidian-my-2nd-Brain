@@ -40,3 +40,5 @@ Work done on 2026-10-04 from the adsbyshoaib session. The full detail is in the 
   - Stale claims in the live ads ("no advance payment" on the 20% offer, 432 reviews, 8.3 Booking.com).
 
 **How to apply:** check `docs/TRACKING.md` and the KB `fix-checklist` before touching tracking or ads. Local dev uses the production DB, so never submit test bookings.
+
+- **2026-10-05 rate parity (live, commit 0637d79):** website is tax-exclusive like Booking.com. Standard = Booking.com standard, offer = Genius 3 (-20
