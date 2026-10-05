@@ -48,3 +48,4 @@
 - [Ads: website first](feedback-ads-website-first.md) — hotel ads never open WhatsApp/call directly; Meta optimises on website Contact, no Google call/message assets
 - [Client work log for monthly reports](feedback-client-work-log.md) — log every client task (ads, design, website, social, audits, GBP, results) in KB `client-report-log-YYYY-MM` as it happens, for professional month-end reports; KB global rule `client-work-log` covers all 16 portal projects
 - [Auto memory + git sync](feedback-auto-memory-git-sync.md) — after every piece of work, update memory, vault, WORK-LOG and the client KB log in the same turn; never wait to be asked
+- [Retainer billing plan](adsbyshoaib-retainer-billing-plan.md) — approved 2026-10-06: auto monthly invoices on the 1st (draft → Shoaib sends) + monthly client report from KB logs + platform data; ad spend not invoiced; not built yet
