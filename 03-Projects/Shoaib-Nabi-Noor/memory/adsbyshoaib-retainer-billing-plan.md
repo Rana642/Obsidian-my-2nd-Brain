@@ -21,6 +21,8 @@ Build order:
 6. Payments / overdue reminders.
 7. MCP tools, shipped on local and remote.
 
+- **On Send/OK:** the invoice and report appear in the client portal for **both Owner and Member roles**, and the email goes to every portal user. Drafts are never shown in the portal. (Shoaib, 2026-10-06.)
+
 Status: plan approved. Build not started (as of 2026-10-06).
 
 Related: [[adsbyshoaib-proposal-agreement-funnel]], [[adsbyshoaib-dashboard]], [[adsbyshoaib-client-portal]], [[feedback-client-work-log]]
