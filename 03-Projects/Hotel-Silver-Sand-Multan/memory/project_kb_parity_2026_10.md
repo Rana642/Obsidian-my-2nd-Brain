@@ -56,3 +56,19 @@ Last 30 days:
 - 24 GBP review replies queued as **draft** (nothing sent).
 - Facebook page map pin is in **Chennai** (13.079, 80.261). Owner must fix it in FB settings.
 - Phase 2 waits on owner decisions. Note: deals currently STACK on the offer price. Switching to the Elegant model (deal off standard, only if it beats the offer) waits for the new deal percentages.
+
+**Phase 2, live 2026-10-05.** Shoaib's answers:
+- Offer = Booking.com standard −20%.
+- Tax-exclusive: rates are pre-tax, +16% GST at checkout.
+- Deals 25/25/30, with the deal % taken off the standard rate. A deal applies only if it beats the offer; the biggest wins.
+- **No advance payment on Silver Sand**. He stopped it mid-build ("Silver Sand mai Advance payment wala na add kero abhi"); the advance flow was removed. Deals pay at the hotel too.
+- Every booking: free cancellation, 100% refund.
+
+Rates (standard → offer): King 3,500→2,800 · Double 8,500→6,800 · Triple 7,500→6,000 · Twin 7,000→5,600.
+Last Minute: check-in today or tomorrow, Thu–Sat, booked 3 pm–midnight, until 2026-12-31.
+
+Commits:
+- Code 5f52bdf: lib/pricing.ts addGst, priceWithDeal, coupons don't stack with deals, DEAL:<name> marker.
+- DB switched after the deploy, then an empty-commit rebuild (b359234).
+
+**Gotcha:** home, /rooms and the LPs are static. They refresh only on an admin room save (revalidatePath) or a redeploy, so after any direct DB price edit, redeploy.
