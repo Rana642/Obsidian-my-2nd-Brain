@@ -43,3 +43,21 @@ Open owner decisions:
 - Bank details.
 
 Boundary note: [[hotel-elegant-knowledge-base]]. Silver Sand's old vault rule says never to mention Elegant in Silver Sand reports. Shoaib now wants parity and an ads plan for both, so using Elegant as the implementation reference is fine. Keep each hotel's performance reports separate unless he asks for a combined view.
+
+**Progress 2026-10-05 (Shoaib: "complete all phases without stopping, analyse what's left"):**
+- Phase 1 live (f253b8a):
+  - NAP = GBP.
+  - Review count 845.
+  - Fallback prices fixed.
+  - /admin tracking guard (`hss_internal`).
+  - First-touch WhatsApp "Ref:" code. A global wa.me/tel listener fires the Ads conversions.
+  - Expired promos hidden.
+  - Biggest discount wins.
+- Phase 3 live (526b817): room-card dates popup → /reservations?room= highlighted; mobile one-line search; mobile total above Book Now.
+- docs/TRACKING.md added (b83750b).
+- Dev launcher: `hotel-silver-sand-dev` on port 3030 (`.claude/hotel-silver-sand-dev.cjs` in the adsbyshoaib repo).
+- The repo needed a local git identity. Set to Shoaib's; older commits were by "Rana642". Vercel deployed fine.
+- Google Ads correction: bidding is already clean. GBP local actions are NOT biddable; real conversions are 4 WhatsApp + 1 Call. No change made.
+- 24 GBP review replies queued as **draft** (nothing sent).
+- Facebook page map pin is in **Chennai** (13.079, 80.261). Owner must fix it in FB settings.
+- Phase 2 waits on owner decisions. Note: deals currently STACK on the offer price. Switching to the Elegant model (deal off standard, only if it beats the offer) waits for the new deal percentages.
