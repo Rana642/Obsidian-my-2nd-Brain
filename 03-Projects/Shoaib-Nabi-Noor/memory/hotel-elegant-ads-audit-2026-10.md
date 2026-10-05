@@ -112,3 +112,75 @@ Account IDs:
   - adimages upload by URL is not allowed.
   - An app in development mode blocks creatives.
   - adsbyshoaib robots.txt now allows Meta crawlers on /privacy and /terms only (commit a584b91).
+
+## CURRENT LIVE ADS STATE (end of 2026-10-06), both hotels
+**Budget (Shoaib, daily):** per hotel, Google Rs 2,000 + Meta Rs 2,000. That is Rs 8,000/day for both, Rs 2.4 lakh/month.
+Client brief PDF: `client-briefs/Hotel-Ads-Plan-Month-1.pdf` (adsbyshoaib folder, untracked; approved by the client).
+Plan: KB Silver Sand `ads-plan-2026-10` (v2 final).
+
+**Rule (Shoaib, 2026-10-06):** ads go to the website first; no direct WhatsApp or call from ads. See [[feedback-ads-website-first]].
+
+### Google
+- **Silver Sand** (customer 4063371094):
+  - "HSS | Search | Brand | Oct-26" (24322025015), Rs 300, Max Clicks with a Rs 60 cap.
+  - "HSS | Search | Hotel in Multan (Non-brand) | Oct-26" (24246154507, the former Pre-Booking Demand v2), Rs 1,700, Max Conversions.
+  - "Arrival Intent v2" paused.
+- **Elegant** (customer 6223250696 via MCC 8859347478):
+  - "Elegant | Search | Brand | Oct-26" (24327908878), Rs 300, Rs 60 cap.
+  - "Elegant | Search | Hotel in Multan (Non-brand) | Oct-26" (24327909001), Rs 1,700, Max Clicks with a Rs 90 cap. Ad groups: hotel-in-multan and gulgasht-family-suites.
+  - 40 negatives added.
+  - Old "Already in Multan" and "Planning to Travel" paused.
+- All RSAs corrected:
+  - Silver Sand: PKR 2,800 + GST, 845 reviews, Save 25%.
+  - Elegant: Rs 6,000 + Tax, 631 reviews; no 8.3, no 432, no "best".
+  - All 9 ads APPROVED.
+- utm_content codes: SGB / SGN / EGB / EGN.
+- CALL and BUSINESS_MESSAGE assets removed. Elegant's account-level call asset is paused.
+- Bidding goals were already clean: GBP local actions are not biddable.
+- **Watch:** 0 impressions on 5–6 Oct right after launch. If it is still 0, check bids and keywords.
+
+### Meta (act_239008850511120, shared; system user "ABS" now has MANAGE; ABS Marketing app PUBLISHED; token rotated 2026-10-06)
+**Live:**
+- "Hotel Silver Sand | Website → Contact | Oct-26" (120250808596860504), Rs 1,500 CBO, optimise pixel CONTACT.
+  - Ad sets: In Multan +40 km, and Planning a trip (7 cities).
+  - LPs /lp/near-station and /lp/book-direct, utm SFC1/SFC2.
+- "Hotel Elegant | Website → Contact | Oct-26" (120250808597270504), same setup.
+  - Planners ad set adds UAE/KSA/UK. LP /lp/book, EFC1/EFC2.
+- Retargeting, both hotels (HSS 120250807956920504, Elegant 120250807959570504): Rs 500, Sales/InitiateCheckout.
+  - Audience: website visitors 30 days, minus purchasers 30 days. utm SFS1 / EFS1.
+- The 4 website ads were in review at the end of the day; the retargeting ads are approved.
+
+**Paused:**
+- The old Search-optimised campaigns (Sep 11).
+- The click-to-WhatsApp campaigns (120250807792300504 / …792570504), paused because of the website-first rule.
+
+**Images:**
+- Silver Sand: reception photo e3c667… (the video has a burned-in "Save 20% Today"; don't use it).
+- Elegant: Executive King 01ae65… and Family Suite 5bb04f….
+
+**Meta API gotchas:**
+- Location types / "travelling in" have been removed.
+- The IG Explore placement is deprecated.
+- Image upload by URL is not allowed.
+- An app in development mode blocks ad creatives.
+- The Graph paging URLs leaked the token. A fix task was spawned; the token was rotated.
+
+### Supporting changes
+- adsbyshoaib `robots.txt` lets only Meta's crawlers read /privacy and /terms (a584b91). Search engines stay blocked.
+- GA4 cleaned on both properties:
+  - Silver Sand key events: booking_confirmed, whatsapp_click, call_click, directions_click, purchase.
+  - Elegant key events: purchase, booking_created, booking_submitted, whatsapp_click, call_click.
+  - Internal-traffic filters are ACTIVE.
+  - The GA4 token now has analytics.edit.
+
+### Next
+1. Check this evening and tomorrow: Meta website ads approved? Google impressions starting?
+2. Hands off for week 1. Monday report: spend, chats, calls, bookings by Ref code.
+3. Week 3: scale the winners +20%, cut anything costing more than 2× target.
+   - Target per confirmed booking: Silver Sand ≤ Rs 1,500, Elegant ≤ Rs 2,500.
+4. Still pending:
+   - 24 GBP draft replies awaiting Shoaib's approval.
+   - Facebook page map pin is in Chennai.
+   - GBP: remove Pool, set check-in to 24h.
+   - Check Instagram / TikTok / OTA NAP.
+   - A new Silver Sand video without the old offer.
