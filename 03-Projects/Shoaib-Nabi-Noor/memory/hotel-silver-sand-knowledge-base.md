@@ -77,3 +77,10 @@ Commits:
 - DB switched after the deploy, then an empty-commit rebuild (b359234).
 
 **Gotcha:** home, /rooms and the LPs are static. They refresh only on an admin room save (revalidatePath) or a redeploy, so after any direct DB price edit, redeploy.
+
+**Ads launched 2026-10-05 (Google only):**
+- Both hotels: Brand (Rs 300) + Non-brand (Rs 1,700) Search campaigns live; old campaigns paused.
+- Ad copy corrected (prices, review counts, 25% deals; no 8.3/432/"best").
+- Silver Sand reused Pre-Booking Demand v2 (id 24246154507) as Non-brand. Elegant got new campaigns 24327908878/24327909001 with 40 negatives and a call asset.
+- **Meta NOT done:** the system-user token has no write permission on act_239008850511120 (error 4841020). Either Shoaib grants the Advertiser role, or he builds from `client-briefs/Meta-Build-Sheet-Oct-26.md` (adsbyshoaib folder, untracked).
+- The 4 old Search-optimised Meta campaigns are still running until then.
