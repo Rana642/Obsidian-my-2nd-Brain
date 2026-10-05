@@ -7,3 +7,4 @@
 - [HSS build status](hss-build-status.md) — phase plan + progress; Phase 1 (setup + DB) done 2026-07-03
 - [HSS non-negotiables](hss-non-negotiables.md) — locked colors, prices, GTM events, NAP, no staff names, unconfirmed email
 - [HSS working style](hss-working-style.md) — phase-by-phase with client testing pauses, plain-language explanations first
+- [KB + parity plan 2026-10](project_kb_parity_2026_10.md) — KB built, NAP=GBP, 4-phase fix checklist, open owner decisions
