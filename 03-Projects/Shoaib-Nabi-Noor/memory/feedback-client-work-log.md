@@ -31,4 +31,11 @@ What counts:
 - Month end: build the report (PDF or page) from this log plus the platform results.
 - Never claim results that aren't measured.
 
+**Applied to ALL portal projects (2026-10-06):**
+- KB global rule `client-work-log` is shown first in every project's brief.
+- `client-report-log-2026-10` was created in all 16 KB projects, backfilled with the real October work found in the work log:
+  - Hotels, Tad and Meezab.
+  - Avenza brands: social connections, the 5–10 Oct post batch, the FB feed fix.
+- REEFCO and Rabbi's Glow have no October entries yet.
+
 Related: [[hotel-elegant-ads-audit-2026-10]], [[hotel-silver-sand-knowledge-base]]
