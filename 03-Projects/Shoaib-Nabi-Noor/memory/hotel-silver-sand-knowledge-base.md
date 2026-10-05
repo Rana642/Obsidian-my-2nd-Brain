@@ -82,5 +82,15 @@ Commits:
 - Both hotels: Brand (Rs 300) + Non-brand (Rs 1,700) Search campaigns live; old campaigns paused.
 - Ad copy corrected (prices, review counts, 25% deals; no 8.3/432/"best").
 - Silver Sand reused Pre-Booking Demand v2 (id 24246154507) as Non-brand. Elegant got new campaigns 24327908878/24327909001 with 40 negatives and a call asset.
-- **Meta NOT done:** the system-user token has no write permission on act_239008850511120 (error 4841020). Either Shoaib grants the Advertiser role, or he builds from `client-briefs/Meta-Build-Sheet-Oct-26.md` (adsbyshoaib folder, untracked).
+- (superseded 2026-10-06, Meta now live) Meta NOT done: the system-user token has no write permission on act_239008850511120 (error 4841020). Either Shoaib grants the Advertiser role, or he builds from `client-briefs/Meta-Build-Sheet-Oct-26.md` (adsbyshoaib folder, untracked).
 - The 4 old Search-optimised Meta campaigns are still running until then.
+
+**Meta live 2026-10-06:**
+- The ABS Marketing app was published; the system user "ABS" got MANAGE on act_239008850511120.
+- Both hotels now run WhatsApp (Rs 1,500 CBO, 2 ad sets) + Retargeting (Rs 500, InitiateCheckout) campaigns, created via the API. The old Search-optimised campaigns are paused.
+- Gotchas:
+  - Meta removed location_types / "travelling in".
+  - IG Explore placement is deprecated.
+  - adimages upload by URL is not allowed.
+  - An app in development mode blocks creatives.
+  - adsbyshoaib robots.txt now allows Meta crawlers on /privacy and /terms only (commit a584b91).
