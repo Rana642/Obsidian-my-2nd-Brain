@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 07de83ef-3bef-4c52-b4bc-5471cb6b2146
-  modified: 2026-10-30T11:48:54.173Z
+  modified: 2026-10-30T12:15:54.786Z
 ---
 
 **Found 2026-10-30.** Shoaib saw it first: Hotel Avalon, Danish Construction and Eventia had no FB feed posts after 23 Oct, including Jummah. Stories, IG, LinkedIn and GBP were fine.
@@ -56,6 +56,11 @@ Clean: Choppers, Choppers Studio, Avenza Avenue, Meezab, Tad, TONI&GUY.
   - A lookup error → retried; after 4 tries it goes in the email.
   - "Missing" counts only if the token can still read the Page's `published_posts`. Graph's #100 message is the same for a deleted post and for no permission, so this stops double posts.
 - **The cron keeps a posted row's upload** while a native FB copy is still unverified. The check deletes it once it is verified, so a stuck Reel can still be re-sent.
+- **Why ROOM-103 and ROOM-201 were missed** (Shoaib asked):
+  - Both were natively scheduled on Meta: ROOM-103 for 24 Oct 7 PM, ROOM-201 for 28 Oct. They got stuck like the other 36.
+  - On 27 Oct the checkpoint backlog re-sent only Instagram. We wrongly believed the native FB posts had gone out, so the stale FB id stayed in `result.live`.
+  - IG went live and the row counted as done, so the video was deleted from storage.
+  - The local search of Desktop, Downloads and `E:\Rana Shoaib` found no ROOM-*.mp4. They were uploaded from the dashboard on 19 Oct.
 - **First run** found 2 Elegant reels not on FB: ROOM-201 (28 Oct) and ROOM-103 (29 Oct; it was posted live, yet missing). Both videos are gone from storage, so both rows are now `failed`. They are on IG; FB needs the video files again.
 - **Re-audit after the fix:** STUCK 0 on every Page. Reel probes still show "missing/untracked" because the id is a video id and its feed post is separate. That is expected.
 - **Kept on purpose:** Silver Sand rows dated 11-11/11-12 and Elegant rows dated 11-30, 12-01, 12-02 carry FB ids published in Sep/Oct and target IG+LI only. That is a backfill and correct.
