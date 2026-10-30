@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 07de83ef-3bef-4c52-b4bc-5471cb6b2146
-  modified: 2026-08-31T11:07:37.668Z
+  modified: 2026-09-26T10:06:37.521Z
 ---
 
 Shipped 2026-08-28 (commit ea4a971). Shoaib wanted to collect client info
@@ -38,7 +38,32 @@ conditionally-swapped button in a form where one branch is type=submit can
 auto-submit on the click that triggers the swap — use distinct keys +
 type=button + manual submit.**
 
-**Form is a 5-step wizard** (`IntakeForm.tsx`, rebuilt 2026-08-28) — the
+**⚠️ Replaced 2026-09-26 (commit 922eeff): the form is now ONE page.**
+Shoaib said "pichla thora complex hai". He supplied his own "Social Media
+Account Setup Intake Form" document, and `IntakeForm.tsx` now mirrors it
+in four sections:
+- **Client information:** business name, phone/WhatsApp →
+  `contact_phone`, email, address, website.
+- **Brand information:** `business_overview`, `target_audience`, `usp`.
+- **Branding assets:** a checklist, `brand_asset_links`, and ONE upload
+  zone.
+- **Competitors & references:** 3 competitors → `competitors`,
+  newline-joined; `design_references`.
+
+What changed underneath:
+- **New columns:** `business_overview`, `usp`, `design_references`. The
+  SQL is at the end of `dashboard-schema.sql`, and Shoaib must run it.
+- **`submitIntake` writes ONLY these columns**, so old-form answers are
+  never wiped on edit.
+- **Dashboard detail page:** answers are grouped by the four sections,
+  plus "From the earlier form" for legacy fields.
+- **Still in place:** the edit-until-locked flow and the Enter guard.
+- **Fixed button:** Submit is now a single type=submit button, so the
+  node-swap bug below can't happen.
+
+The wizard description below is HISTORY.
+
+**Form was a 5-step wizard** (`IntakeForm.tsx`, rebuilt 2026-08-28) — the
 5th step is a **read-only Review** (snapshot via a form ref + state) with a
 per-section "Edit" jump-back; Submit lives there since submitting locks the
 form. Step 1 was also refined per Shoaib: "About you" = ONLY the person's

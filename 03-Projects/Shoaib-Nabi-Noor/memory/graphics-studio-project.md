@@ -129,10 +129,9 @@ Pro) and OpenAI API key (GPT Image) — both env var slots already exist in
 next resumes).
 
 **Update 2026-08-25: Phase 2 (Creative Track) built and committed** (`70fb5f2`).
-Both API keys obtained and wired into `.env.local` — Gemini key
-`AIzaSyA18p7qxrYCgOAgKOI9j3nkEsI7i2HZu04` (project ref `cdbrmhmkgjdarvouceey`
+Both API keys obtained and wired into `.env.local` — Gemini key (value lives only in `.env.local` — never write keys into memory; the original was auto-disabled by Google on 2026-10-02 as leaked, because this note was in the public vault repo) (project ref `cdbrmhmkgjdarvouceey`
 matches the Supabase project's — coincidence, different services), OpenAI
-key starting `sk-proj-JoRF...`. **Confirmed live model IDs** (don't
+key in `.env.local`. **Confirmed live model IDs** (don't
 re-guess these, verify via `/v1beta/models` or `/v1/models` again if they
 ever 404):
 - Nano Banana family: `gemini-3-pro-image` (Pro/premium), `gemini-3.1-flash-image`
@@ -236,28 +235,6 @@ Phase 3 (Asset-Locked track for real estate/product photos) per
 `docs/PLAN.md`. Enhancer/upscaler quality (Higgsfield-parity, see the
 reminder above) is still Phase 5/deferred but must not be dropped.
 
-**Update 2026-09-24: repo moved from `E:\...` to `D:\Rana Shoaib\My Projects
-Website\graphics-studio`** — the MCP registration command in README.md still
-has the old `E:/...` path, re-register with the `D:/...` path if reinstalling.
-MCP server registered successfully by Shoaib (2026-09-24) via
-`claude mcp add graphics-studio --scope user`. Credits still NOT added on
-any provider (Google AI Studio, OpenAI, Topaz) as of 2026-09-24 — real
-generation is still blocked purely on billing, not code. **Do not assume
-credits are live without Shoaib explicitly saying so.**
-
-**Video generation (2026-09-24, new scope, not built yet)**: Shoaib confirmed
-he also wants **Seedance** (ByteDance's video model, likely via Fal.ai or
-Replicate — needs research on exact API) added as a video-generation
-provider, alongside Google **Veo** (same Google AI Studio account as Nano
-Banana) as a second option. This is a genuinely new capability, not part of
-Phase 2/3/image work — will need its own `lib/video-providers/` abstraction
-(mirroring `lib/image-providers/`), schema additions (a `video_generations`
-table or a `media_type` column on `generations`), and matching MCP tool(s)
-(e.g. `studio_generate_video`) per the standing MCP-sync rule
-([[graphics-studio-mcp-sync-feedback]]). Sequencing: get the existing image
-pipeline live-tested with real credits first, then start video as its own
-phase — don't interleave until image path is proven end-to-end.
-
 **Costing views added (2026-08-25, commit `bf0b206`)** — `/costs` (all-brands
 overview) and `/brands/[id]/costs` (per-generation breakdown + a live
 sale-price/margin calculator), reading `generations.est_cost_usd` which
@@ -271,3 +248,87 @@ price to that other dashboard. **If a future request asks to persist a sale
 price or generate an invoice PDF here, push back and point to the existing
 dashboard first — don't silently start building a second invoicing system
 unless he's explicit that he wants it duplicated.**
+
+**Batch delivery (2026-10-02, commit `43d530b`, pushed to the public repo Rana642/Graphic-Studio-By-Shoaib).**
+
+Shoaib: "dono k liye Banao Batch bhi use keryn aur Normal api bhi jb jiski zarorat ho gi".
+
+- **Choice:** every generate path has a Delivery choice — "Now", or "Batch" at 50% off with results within 24 h. This covers the brand, free-prompt and subject-edit forms, plus the three MCP generate tools (`delivery` arg).
+- **OpenAI:** JSONL with `/images/edits`. Reference images go in as data URLs, shrunk to 1536 px JPEG.
+- **Gemini:** inline `batchGenerateContent`. Reference images are uploaded once via the Files API (`fileData`).
+- **Where the code lives:**
+  - `lib/batch-jobs.ts`: pending rows carry `delivery='batch'` and a `provider_job_id`; `syncBatchJobs()` collects the finished images.
+  - `/batches` page: syncs on load and every 60 s while anything is pending.
+  - MCP `studio_check_batches`.
+- **Why polling:** the app is not deployed to Vercel (no GitHub deployments) and runs locally on :3010. There is no URL a webhook could reach, so the app checks for results instead.
+- Mock-tested request shapes and parsing; `next build` passes.
+- Real-DB test 2026-10-02 (fix `b29edb4`): a refused submit ends "failed"; a mocked OpenAI job went pending → complete (image in Storage) and an errored item → failed. Test rows were deleted.
+- **OpenAI batch LIVE-VERIFIED 2026-10-02:** Shoaib added $5 to the **Socially Snap** OpenAI org (the app key "graphics-studio" …F60A belongs to that org, not Personal; auto-reload OFF). Two draft batches (generations + edits with a reference) finished in ~3 min; the images landed in Storage, and the two "Standalone" rows were left on /batches as proof.
+- **Gemini batch still untested:** waiting for a new AI Studio key.
+- Earlier state, as of 2026-10-02:
+  - The OpenAI account answers `billing_hard_limit_reached`.
+  - Google auto-disabled the Gemini key as leaked.
+  - The batch SQL was RUN by Shoaib on 2026-10-02.
+  - The `generations` table had 0 rows, so the app has never produced a real image.
+- The Supabase free project pauses after inactivity. Shoaib restored it on 2026-10-02.
+
+**Prompt Contract + Quality Gate (2026-10-03, commit `9bc908d`).** Shoaib asked for these first, out of the Higgsfield skills and the AI Content Factory fork.
+
+- **Prompt Contract** — `lib/prompt-contract.ts`, adapted from the MIT-licensed higgsfield-ai/skills:
+  - every prompt is ordered blocks: an IMAGE REFERENCES manifest, then FRAME → SCENE → TEXT (exact words) → SUBJECTS → KEY ELEMENTS → LOGO → COMPOSITION → BACKGROUND → LIGHTING → GRADE → BRAND (palette + GLOBAL_DESIGN_RULE light/glass);
+  - the brand logo is now sent as image 1 — before this it was never attached;
+  - subject edits carry an identity lock;
+  - free prompts stay raw, and only their quoted words are checked.
+- **Quality Gate** — `lib/quality-gate.ts`, the Rana642/ai-content-factory pattern:
+  - **judge:** gpt-5.4-mini, chosen over gpt-4.1-mini in a side-by-side on Tad posts. Override with `QUALITY_MODEL`.
+  - **checks:** exact text, invented words, logo/product vs references, the dark-colour rule; scores 0–100.
+  - **retry:** below 70 or wrong text → one retry with a FIX block that keeps everything that was right, then the better image is kept. Both attempts are billed and recorded.
+  - **batch:** batch images are judged only, not remade.
+  - **never blocks:** no key or an error → null.
+- **UI:** a score badge on results and an "Auto quality check" toggle on the 3 forms.
+- **MCP:** `qualityCheck` param on the 3 generate tools, plus new `studio_check_quality` (generation id / local file / link + expected text + rules).
+- **Tested live:**
+  - a draft image passed at 88;
+  - a forced missing line → the retry added it;
+  - the first retry went dark, so the fix block now says "keep light";
+  - `studio_check_quality` flagged Tad Day 1's dark panel at 58;
+  - test rows were deleted.
+- **Needs the quality SQL** (end of supabase-schema.sql). Until it runs, images save without a score.
+- **Next from the plan:** Product Photoshoot modes (10, from Higgsfield), Draft → Approve → Final, the thumbnail frameworks.
+
+**Product Photoshoot (2026-10-03, commits `e6189c2` + label-check fix).** The Photoshoot page lives at `/generate/photoshoot`.
+
+- **Modes:** 10 modes from the Higgsfield skill, in `lib/photoshoot-modes.ts`.
+- **Prompt templates:** our own, in `lib/photoshoot.ts`, written over the prompt contract, with a PRODUCT LOCK and variants that differ in light, angle and palette.
+- **Flow:**
+  - concepts are always Draft;
+  - an Approve button on each concept;
+  - Make finals at Standard/Premium, Now or Batch — the concept is image 1 and the product photos follow; the "image N" numbering is shifted for this.
+- **Recent photoshoots** is the single place to approve and finalise.
+- **SQL run by Shoaib:** `photoshoot` track, plus `photoshoot_mode`, `tier`, `input_image_urls`, `approved_at` and `parent_generation_id`.
+- **MCP:** `studio_list_photoshoot_modes`, `studio_photoshoot`, `studio_list_photoshoots`, `studio_finalize_concepts`.
+- **Live normal test**, Aminotox lifestyle on a farm:
+  - 3 Draft concepts in 104 s;
+  - 2 had garbled label words, which led to the judge fix: label words are checked against the product photo, punctuation is ignored;
+  - the final (Standard) kept the composition and scored 92.
+- **Batch finals** were not tested yet — Shoaib said to test normal first.
+- **All 10 modes tested live, 2026-10-03.**
+  - Fixes from the test:
+    - carousel beats made concrete (they had all been the same bottle);
+    - the hero product is now 40–50% of the frame height;
+    - ad-pack text gets its own zone;
+    - restyle is now an edit of image 1.
+  - Draft concepts are judged as "DRAFT CONCEPT", with the label-word check skipped, because gpt-image-1-mini garbles small label text. Finals stay strict.
+  - On re-test every mode passed at 78–94.
+  - The restyle draft still dropped the headline — check it on a final.
+  - Test spend was about Rs 60. The test rows were left in Recent photoshoots so Shoaib can see them.
+- **2026-10-03 — the OpenAI balance ran out:** the $5 on the Socially Snap org was used up during the Tad 11-type redo, and a 429 `credit_balance_exhausted` stopped it at Product Spotlight draft4.
+  - The key itself is fine (200).
+  - The quality judge (gpt-5.4-mini) uses the same balance, so it stops too.
+  - Resume only after Shoaib adds credits.
+  - The scratchpad pipeline (`generate4.ts`) now saves every attempt and keeps attempt 1 when a retry fails.
+  - It also has an ALIGN grid rule on every post, a LAYOUT CHECK for the judge, and puts the logo on the measured text margin, centred in the 150 px header.
+
+**2026-10-05:** Shoaib topped up OpenAI to $5.98. REEFCO DICLAREEF and FOSBAREEF T posts were made with scratchpad `tadstyle/reefco-gen.ts`, a REEFCO copy of generate4 (stacked logo 160 px, 170 px header band, Green Strip footer via footer.ts). Spend was about $0.3. Never batch without asking ([[feedback-no-batch-without-ask]]).
+
+**2026-10-05:** the GOOGLE_AI_STUDIO_API_KEY in graphics-studio/.env.local is the LEAKED key, and Google returns 403 "reported as leaked". Shoaib must make a new key and put it in .env.local himself; never ask for it in chat. scratchpad `tadstyle/meezab-gen.ts` now supports PROVIDER=gemini (gemini-3-pro-image, 1:1 2K, refs first). The quality judge uses OpenAI, so it is off when there are no OpenAI credits; review every image by eye.

@@ -25,7 +25,7 @@ Shoaib's vision for "one dashboard" (2026-08-22) is a **business operations tool
 
 **Setup completed 2026-08-22:** schema run in Supabase, Shoaib created his own login user (Claude must never create accounts or handle passwords). Verified end-to-end via the service-role REST API: all 9 tables present, settings seeded, numbering function correct sequentially AND under 5 parallel calls (5 distinct numbers, no collision), full client → quotation → invoice → partial payment flow with relationships intact, and the FK restriction correctly refusing to delete a client that has documents (error 23503, which `deleteClient` translates into plain language). All test data was cleaned up afterwards — the tables are empty. Production `/dashboard` redirects to login correctly and carries `noindex`.
 
-Logo is the current citrus-dot mark; he'll supply a final one later. See [[adsbyshoaib-cms-architecture]] and [[adsbyshoaib-build-status]].
+The real logo has been in `public/brand/*.svg` since the 2026-09-15 rebrand ([[adsbyshoaib-color-swap]]). See [[adsbyshoaib-cms-architecture]] and [[adsbyshoaib-site-infra]].
 
 The dashboard later grew a Proposal -> Agreement -> Onboarding
 client-capturing funnel with tiered catalog pricing — see

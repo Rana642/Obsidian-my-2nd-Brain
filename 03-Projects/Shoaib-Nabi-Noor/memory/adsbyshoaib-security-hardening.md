@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 07de83ef-3bef-4c52-b4bc-5471cb6b2146
-  modified: 2026-09-01T09:23:16.603Z
+  modified: 2026-09-26T08:57:32.167Z
 ---
 
 Done 2026-08-31 (commit da5ef76) after the password vault shipped, so an
@@ -79,6 +79,27 @@ tables via the PostgREST spec (found `contacts`/`subscribers` too, which
 aren't in dashboard-schema.sql). Restore = re-apply the schema SQL, then
 re-insert rows from the JSON. Shoaib should run it on a cadence and keep an
 off-machine copy. Pro plan ($25/mo) would add daily backups + PITR instead.
+
+**⚠️ Open sign-up hole, admin role gate (2026-09-26, commit cf1be56):**
+Supabase `/auth/v1/settings` showed `disable_signup: false`, and every
+dashboard gate only checked "is someone signed in". So anyone could sign
+up with their own email via the public anon key, confirm it, and get the
+full dashboard. At check time the only auth user was Shoaib's
+(9bf8c3ac…, created 2026-08-22), so nothing was exposed.
+
+The fix: `lib/dashboard/roles.ts` `isAdmin()` requires
+`app_metadata.role === "admin"`, which only the service role or SQL can
+write; `user_metadata` is never trusted. `getUser` became `getAdminUser`
+at all 22 call sites, `proxy.ts` treats a non-admin session as signed
+out, and LoginForm signs non-admins straight back out. This is also the
+foundation for the client portal (clients get another role).
+
+The auto-mode classifier DENIED Claude setting the admin role via the
+admin API ("Permission Grant"). Shoaib must run it himself in the SQL
+Editor:
+`update auth.users set raw_app_meta_data = raw_app_meta_data || '{"role":"admin"}' where email = 'shoaib.nabi.noor@gmail.com';`
+
+**Resolved 2026-09-26:** Shoaib ran that SQL and turned sign-ups off; both were verified (`disable_signup: true`, `role=admin`). cf1be56 was then pushed.
 
 **Pentest pass (commit e5d572d, 2026-08-31):** acting as pentester, found +
 fixed 6 real loopholes — (1) open redirect via login `?next=` (now only
