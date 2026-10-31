@@ -20,3 +20,26 @@ metadata:
 In the browser pane the dashboard is phone-width and refs go stale after the dialog re-opens. Filter the import dialog with its search box first, so the click can't hit the wrong row. One click once ticked The Panache by mistake; it was unticked, nothing was imported.
 
 See [[instagram-login-connect]], [[adsbyshoaib-dashboard-navigation]].
+
+**2026-10-31: two logins, which one a Page uses** (a33744e).
+- **Problem:** both Facebook logins (slot 1 Shoaib, slot 2 Ajaz Hussain = the same FB user 1176365811541314 who was "Ijaz Danish") reach many of the same Pages.
+  - `refreshFacebookPageTokens` used "the login just reconnected wins", and saving an import also refreshed every token.
+  - When Ajaz reconnected at 16:21, 9 Pages moved onto his token. That login never granted `pages_read_user_content`: it was dropped from the login scope on 10-28, and the App Review doc wrongly had it on the "remove" list.
+  - Their Facebook insights then failed with #10, because the Insights post list reads `comments.summary`.
+- **Fix:**
+  - The scope asks for `pages_read_user_content` again.
+  - `bestSource` keeps an account on its current login unless that login lacks a needed permission (`PAGE_SCOPES_NEEDED` / `INSTAGRAM_SCOPES_NEEDED` in social-fb).
+  - Saving an import no longer refreshes all tokens. It inserts with `fb_login_name` and moves only the Pages explicitly picked with a login.
+  - Which login a stored token belongs to is worked out from `debug_token` `user_id` (`storedTokenOwners`). No new column, and it still works when a profile name changes.
+- **Import dialog:** "via <login>" chips, a login select when two logins reach a Page, a "now via X ⚠" on imported Pages (re-selectable to move them), and a login filter. The browser sends `{project_id, page_id, login_slot}`; the zod schema was tested on real ids and the backslash is intact.
+- **Integrations:** each FB/IG account shows "via X" plus an IssuePopover ⚠. A login that lacks permissions shows "Permission missing".
+- **Check without the UI:** `/api/social/fb-audit?choices=1` (cron token) returns the dialog's data with no tokens.
+- **State after deploy:**
+  - Avenza Avenue, Avenza Land, Choppers, Choppers Studio, Elegant and TONI&GUY are reachable through both logins. Shoaib can move them in the dialog.
+  - Danish, Eventia and Avalon are reachable only through Ajaz. He has to reconnect (Tester role, Standard access).
+
+**Later on 2026-10-31:**
+- **Eventia (FB + IG) and Danish (FB) were moved to Shoaib's login** at Shoaib's request ("eventia aur Danish construction ab mere porifile per ker do"), using the fb-audit POST `{move:[{page_id, project_id, login_slot:1}]}`, which calls `saveFacebookPageMappings`. 3 rows changed. **Only Hotel Avalon remains on slot 2.**
+- **The rows got the "Facebook login 1" placeholder name**, because /me had failed under the rate limit. They were fixed in the DB to "Shoaib Nabi Noor".
+- **Code fix eaf17a8:** /me is retried once, and only `realName` is ever saved as `fb_login_name`.
+- **Meta hourly app limit (#4) was hit at ~17:00.** debug_token and /me use platform limits. Caches added in a362241: login health 5 min (cleared on reconnect), broken count 15 min, token owners 10 min.

@@ -50,8 +50,10 @@
 - [Morning report](morning-report.md) — daily 8 AM PKT Planner email (free code, not AI): kal/masle/aaj/khaali din; once-per-day key; preview script
 - [FB native schedule → feed fix](fb-native-schedule-feed-fix.md) — /photos scheduling missed the feed; a95bbf5 uses /feed; audit /{page}/scheduled_posts
 - [Instagram Login connect](instagram-login-connect.md) — non-Page IG via Instagram Login: Tester role, API Vault "instagram_login", graph.instagram.com
-- [Import Pages + late-linked Instagram](connections-import-pages.md) — imported Page can add its later-linked IG; tokens server-side; regex-escape lesson
+- [Import Pages + two logins](connections-import-pages.md) — which login each Page uses (via chips, move, bestSource); only Avalon left on Ajaz; app hourly limit #4; regex lesson
 - [LinkedIn Community API](linkedin-community-api.md) — vetting passed 10-28, Dev Tier; upgrade form due ~11-18 with demo; don't re-request
+- [Meta App Review video](meta-app-review-video.md) — NEXT (home PC, 31 Oct eve): clip plan, captions, Ads by Shoaib test Page; never submit without him
+- [Meta Ads API setup lessons](meta-ads-api-setup-lessons.md) — ABS needs ad-account + Page assignment; Lead ToS; CBO same-goal; Choppers Studio Pink Oct campaign ids
 - [Meta insights: organic vs ads](meta-insights-organic-vs-ads.md) — IG per-post = organic; subtract "AD" breakdown; FB is_from_ads; paging URLs leak token; MCP tool social_get_insights for FB/IG audits
 - [GBP reply queue](gbp-reply-queue.md) — Claude writes replies, human-paced cron (15–35 min, 18/day/location); Elegant caught up 10-27, Silver Sand 283 left
 - [Occasion posts](occasion-posts.md) — Jummah/event posts for every project via kb_get_occasion_post; Arabic/Urdu only from verified texts

@@ -74,3 +74,27 @@ Related: [[adsbyshoaib-dashboard]], [[adsbyshoaib-payments-receipts]], [[adsbysh
 **2026-10-19, commit 92d1228: Business Management and Password Vault.**
 - **Business Management:** "Websites" became **Business Management**. Each industry system is a labelled tab group (`showTitle`). It has Hotel Management now (Bookings, Inquiries, Contacts); Salon Management and others get added as new groups once they're built. Shoaib does not want empty placeholders.
 - **Password Vault:** now its own sidebar item, removed from Clients. Shoaib: "bahr hi bas".
+
+**2026-10-31 — Socially Snap → Settings → Integrations** (0ecd372, Shoaib OK'd the design).
+- Connections moved out of Marketing into a new **Settings** entry. It is the last item in the "Socially Snap Apps" dropdown (section key `socially-settings`).
+- The tab is called **Integrations**. The URL is still `/dashboard/social`, because every OAuth callback returns there.
+- Marketing now matches only `/social/insights`, `/ads` and `/youtube`.
+- Each Facebook login card shows its Page count. When Meta blocks the login it shows a red "Reconnect needed": since when, how many held posts, and the fix. The data comes from `heldPostsSummary`.
+- Small link cards go to Google Business and WhatsApp numbers.
+- The banner link now reads "Open Integrations".
+
+**Broken-connection pop-up** (349bde9 and 4eafe2c, 2026-10-31; Shoaib: "alert pop mai ana chaiye jahan jahan bhi connection kharab hai").
+- `lib/connection-health.ts` (`brokenConnections`, 60 s cache) lists what is broken:
+  - a Facebook login Meta stopped. Checked live with `facebookLoginWorks` (debug_token: valid AND has scopes);
+  - an Instagram Login account that expired or has held posts;
+  - the LinkedIn login when expired or expiring within 7 days.
+- Posts that are only retrying behind a working login are excluded. Integrations shows those as yellow "Posts retrying".
+- `ConnectionAlert`: a pop-up on every dashboard page, once per browser session (sessionStorage), with "Later" and "Open Integrations".
+- Socially Snap → Settings gets a red count badge (`ALERT_BADGES` in SidebarTools, `integrations` in /api/dashboard/counts).
+- The HeldPostsBanner was deleted.
+- `loginNames()`: a broken login can't read its own name, so the name falls back to `fb_login_name` on its Pages.
+- **Update, later on 2026-10-31 (81326bb, 6aa6fb5):** Shoaib had meant a pop-over, not a modal ("bara popup hata do, sirf ⚠ wala rakho").
+  - `ConnectionAlert` (the modal) and `/api/dashboard/connection-health` were deleted.
+  - Login problems on Integrations now sit behind a ⚠ sign beside the status pill (`IssuePopover` in ConnectionsHub). Hover or focus opens the details above the card; a click pins them; Esc or a click outside closes them.
+  - **Lesson:** "pop" from him = a pop-over on the thing itself, not a page-wide modal.
+  - Kept: the red badge on Settings (`brokenConnections`).

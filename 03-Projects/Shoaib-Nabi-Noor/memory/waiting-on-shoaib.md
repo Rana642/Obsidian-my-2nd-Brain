@@ -5,29 +5,24 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 07de83ef-3bef-4c52-b4bc-5471cb6b2146
-  modified: 2026-10-30T12:03:11.572Z
+  modified: 2026-10-31T12:24:02.654Z
 ---
 
 Each item has its details in the linked file. Remove an item here as soon as it is settled. Don't nag: bring an item up when the topic comes back, or when he asks what's pending.
 
 **Social posting**
 - **LinkedIn October backfill (28 Oct).** The image-recovery fix 3831183 works (Tad test 16:45, Tad 17:10 OK). 51 copies are re-spaced to ONE per cron run, 28 Oct 17:52 → 29 Oct 06:22 PKT, because each LinkedIn copy takes ~13 s of the cron's 20 s budget, and two per run pushed client posts back. Avalon's 15 copies stay paused (`held`, next_try 30 Nov) until its FB/IG token works; their image recovery needs it. On 29 Oct: check for failures, then release Avalon after the Ijaz Danish connect.
-- **Meta App Review for the posting app "Socially Snap Planner" (prepared 2026-10-28, fb4132a).** The app is Published, but its 8 permissions only have Standard Access, so every new profile must be a Tester. Done: `pages_manage_engagement` dropped from the scope, and `docs/meta-app-review.md` has the use-case texts and recording steps. App settings → Basic was ALREADY set to the Socially Snap site's privacy/terms/data-deletion pages (sociallysnap.adsbyshoaib.com, built 2026-09-13; see the vault note sociallysnap-site). The duplicate adsbyshoaib.com/data-deletion I made was removed (8268002). **Lesson: for anything about the Meta/Google apps, check the vault's Socially Snap notes first.** Waiting on him:
-  - clear Alert Inbox (1) / Required actions
-  - record the video
-  - provide a demo login (never admin)
-  - submit
-  Approval also unlocks the System User token.
-- **Wife's Facebook profile still blocked (checked 2026-10-28 16:45 PKT).** `social_connections` row 2 (her login) is GONE. Only row 1 is left: Shoaib, reconnected 28 Oct 14:07. `refreshFacebookPageTokens` only refreshes Pages and IG accounts that row 1 can reach, so these still carry her dead tokens:
-  - Hotel Avalon FB + IG
-  - Danish Construction FB (Danish IG is on Instagram Login and works)
-  - Eventia IG (Eventia FB works)
-  Not testable yet, because nothing has gone out since 23 Oct: Tad Pharma, Meezab, Choppers Studio, Avenza Avenue. The line below saying "natively scheduled FB posts still went out" is WRONG for her Pages. Avalon's FB page shows nothing after 23 Oct, although 5 native schedules (24–28 Oct) said ok; Danish has 5 like that. **Fix, waiting on him:** she clears the checkpoint on facebook.com and connects as Second Facebook login. Alternative: Shoaib gets full access to those Pages/IG and ticks them on reconnect. After that, audit `/{page}/scheduled_posts` + `published_posts` and re-post the missing FB ones with gaps.
-- **Meta checkpoint is BACK since 2026-10-27 15:00 PKT.** Hotel Avalon IG + Story and the Danish FB Story failed with the same error. The Danish and Avenza Land Instagram accounts use Instagram Login, so they still work, and Google is fine. I told Shoaib to log in on facebook.com with the account that connected the Pages and clear the checkpoint. After that, re-queue today's failures. This is the second time in four days; if it repeats, look at the API volume (TONI&GUY 8 Stories a day). Built 0e30c0f: blocked posts are now held, not failed, with an email and a dashboard banner, and released on reconnect (`lib/social-connection-hold.ts`). **Next, waiting on his go-ahead:** a System User token for posting, so no personal profile sits behind the Page tokens. He has to assign the Pages + IG accounts and generate a never-expiring token in Business Settings. Test one Page first: the posting app is unpublished (Standard Access) and may need App Review now that Tech Provider is verified.
+- **NEXT, on the home PC: the Meta App Review video for "Socially Snap Planner"** (Shoaib, 2026-10-31 17:30: "Ghar waly pc per keron ghanty baad"). The full plan, status and open decisions are in [[meta-app-review-video]]. **Lesson: for anything about the Meta/Google apps, check the vault's Socially Snap notes first.**
+- **Facebook logins (2026-10-31):** 15 of 16 Pages now run on Shoaib's login.
+  - **Only Hotel Avalon (FB + IG) is left on Ajaz Hussain's login (slot 2)**, because only that login reaches it. "Ajaz Hussain" is the same FB user who used to be "Ijaz Danish".
+  - Ask Ajaz to give Shoaib access to Avalon, then move it: Import Pages → "via Shoaib Nabi Noor", or the fb-audit POST `move`. Slot 2 can then be removed.
+  - Until then, Ajaz should reconnect once. His 16:21 login lacks `pages_read_user_content`, so Avalon's Facebook insights fail.
+  - Details: [[connections-import-pages]].
+- **Meta app hourly limit hit on 2026-10-31 ~17:00 PKT** ("(#4) Application request limit reached"). It came from many debug_token and /me calls (audits, and the new Integrations page and sidebar badge). Those are now cached (a362241). Page-token posting wasn't affected. Avoid bursts of audit calls.
+- **Later, after App Review:** a System User token for posting, so no personal profile sits behind the Page tokens. Then a checkpoint on one profile can't stop posting.
 - **Meta checkpoint 24–26 Oct** (asked 2026-10-27): from 24 Oct 10:00 UTC to 26 Oct 17:32 UTC every live Meta call failed with "You cannot access the app till you log in to www.facebook.com and follow the instructions given." That is a security checkpoint on the Facebook account that owns the token. **Correction (30 Oct):** the natively scheduled FB feed posts did NOT go out either. 36 sat in Meta's scheduler. They were found and fixed on 30 Oct; see [[fb-native-stuck-after-reconnect]]. 48 rows failed: 37 Stories (21 of them TONI&GUY) and Instagram for 9 feed posts and 2 Reels (Avalon 95/96/56, Eventia 96/57/95, Elegant 3.jpg + ROOM-103/105, Silver Sand 12/13). It works again from 27 Oct 05:00 UTC. **The 11 were re-queued Instagram-only on 2026-10-27, as Shoaib approved**, 28 Oct – 1 Nov PKT. The FB result was moved to `result.live` (not `native`), so a reschedule can't delete the live FB post. Auto mode blocked my direct DB PATCH twice, so Shoaib ran the script himself in his PowerShell terminal (PowerShell 5.1: no `&&`, and write the script file in a separate call first). Still open: failed Stories count as "used" in `lib/story-drive.ts` recycling, so they go to the back of the line; should they go first instead? Related fix 836381a: posted and failed stories now count toward `per_day`. Before it, TONI&GUY got 11 that day instead of 8 after the slot hours changed to 16–23 PKT. TONI&GUY `109.mp4` (61 s) is skipped until it is trimmed to 60 s.
 - **TONI&GUY IMG_6257 Reel → Story** with the TG monogram: he said "ruk jao abhi" (2026-10-23). Not posted. [[toniandguy-reel-logo]]
 - **Avenza Land 29.png** 31 Oct duplicate is held: email Fatima, or ask for a new post? (2026-10-22) [[aijaz-danish-brands]]
-- **Meezab Friday-1**: waiting for the designer to fix two Arabic harakat. **World Egg Day** is held because it is dated 9 Oct. (2026-10-21) [[meezab-knowledge-base]]
 - **Tad**: he should check Meta Business Suite for stale old native drafts after 22 Oct. Should I build a check tool? (2026-10-21) [[tadpharma-knowledge-base]]
 - **REEFCO**: Khaled wants dark backgrounds, which clashes with the global light rule; also whether to lock the layout. (since 2026-10-10) [[reefco-social-posts]]
 - **Tad**: ask for an official white/mono logo. (2026-10-03) [[social-design-system]]
