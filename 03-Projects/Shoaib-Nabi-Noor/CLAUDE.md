@@ -4,7 +4,14 @@ Personal brand site: Next.js + Sanity CMS + Supabase. Live repo: github.com/Rana
 
 See `memory/MEMORY.md` for full context: build status, CMS architecture, dashboard, vault, client intake, Hostinger partnership, security hardening.
 
-## Latest (2026-10-31): start here on the home PC
+## Latest (2026-11-02, office PC)
+**Still next: the Meta App Review video** (not recorded yet). Short log: [[02-Journals/2026-11-02-adsbyshoaib-work-log]].
+- All connections are healthy.
+- Danish 2–10 Nov is captioned and scheduled.
+- **New rule: no emojis in captions** (KB `captions-no-emojis`).
+- Failed posts are not re-sent; posting continues with the next ones.
+
+## Earlier (2026-10-31): start here on the home PC
 **Next: record the Meta App Review video.** Memory: `memory/meta-app-review-video.md`. Short log: [[02-Journals/2026-10-31-adsbyshoaib-work-log]].
 
 Also today:

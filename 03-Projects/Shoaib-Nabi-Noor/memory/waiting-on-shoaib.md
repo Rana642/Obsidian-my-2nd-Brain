@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 07de83ef-3bef-4c52-b4bc-5471cb6b2146
-  modified: 2026-10-31T12:24:02.654Z
+  modified: 2026-11-02T10:12:47.563Z
 ---
 
 Each item has its details in the linked file. Remove an item here as soon as it is settled. Don't nag: bring an item up when the topic comes back, or when he asks what's pending.
@@ -16,7 +16,10 @@ Each item has its details in the linked file. Remove an item here as soon as it 
 - **Facebook logins (2026-10-31):** 15 of 16 Pages now run on Shoaib's login.
   - **Only Hotel Avalon (FB + IG) is left on Ajaz Hussain's login (slot 2)**, because only that login reaches it. "Ajaz Hussain" is the same FB user who used to be "Ijaz Danish".
   - Ask Ajaz to give Shoaib access to Avalon, then move it: Import Pages → "via Shoaib Nabi Noor", or the fb-audit POST `move`. Slot 2 can then be removed.
-  - Until then, Ajaz should reconnect once. His 16:21 login lacks `pages_read_user_content`, so Avalon's Facebook insights fail.
+  - **Done 2026-11-02:** Ajaz reconnected and slot 2 now has every scope, `pages_read_user_content` included.
+  - Check on 11-02 (fb-audit `?debug=1`, script `fb-login-check.cjs` in the session scratchpad):
+    - Both logins are valid, data access runs to end of Jan 2027, and no scopes are missing.
+    - All 16 Page tokens are valid with every scope.
   - Details: [[connections-import-pages]].
 - **Meta app hourly limit hit on 2026-10-31 ~17:00 PKT** ("(#4) Application request limit reached"). It came from many debug_token and /me calls (audits, and the new Integrations page and sidebar badge). Those are now cached (a362241). Page-token posting wasn't affected. Avoid bursts of audit calls.
 - **Later, after App Review:** a System User token for posting, so no personal profile sits behind the Page tokens. Then a checkpoint on one profile can't stop posting.
@@ -38,6 +41,16 @@ Each item has its details in the linked file. Remove an item here as soon as it 
 - **About page "8 industries"** list doesn't match the real clients (since 2026-08-24). [[adsbyshoaib-aesthetic-audit-2026-08-24]]
 - **Resume work experience** (4 jobs + 6 remote projects) is still missing. [[adsbyshoaib-resume-data]]
 - **Indexing** stays off until he says the site is final. [[adsbyshoaib-no-indexing-until-final]]
+
+**Social (2026-11-02):**
+- **Settled 11-02:** the two 31 Oct stories that failed on Facebook (Danish "Story · 92.png", TONI 1118.mp4) stay failed. Shoaib: "Fail hui ko bas dobara na chalao next se continue kero".
+  - **Standing rule:** don't re-send failed stories; just keep the upcoming ones going.
+  - The re-queue script was deleted.
+- **Settled 11-02:** the 58 captions already scheduled with emojis stay as they are. Shoaib: "Rehny do ab captions ko bhi next se". The no-emoji rule applies only to captions written from now on. [[feedback-captions-no-emojis]]
+
+**Office PC (2026-11-02):**
+- **Chrome profiles**: he'll review which old profiles to delete later. The list is in [[office-pc-chrome-profiles]].
+- **`G:\Backups\C-cleanup-2026-11-02`** holds VS Code and Codex leftovers. Delete it after about 9 Nov if both still work. [[shoaib-two-pc-workflow]]
 
 **Open from 2026-10-30:**
 - **Elegant reels ROOM-201 (28 Oct) and ROOM-103 (29 Oct)** never reached Facebook. They are on IG. The video files are gone from storage, so they need uploading again for FB. [[fb-native-stuck-after-reconnect]]

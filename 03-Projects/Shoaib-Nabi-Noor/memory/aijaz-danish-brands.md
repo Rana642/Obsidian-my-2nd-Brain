@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 07de83ef-3bef-4c52-b4bc-5471cb6b2146
-  modified: 2026-10-14T07:14:40.210Z
+  modified: 2026-11-02T10:08:41.795Z
 ---
 
 Client: "Aijaz Danish - Avenza Group of Companies".
@@ -44,7 +44,8 @@ Client: "Aijaz Danish - Avenza Group of Companies".
 **GBP mapping fix (2026-10-02).** Avenza Avenue's `gbp_connections.selected_location` pointed at the "Choppers Salon & Spa Multan" location (13757437040459439106), which is Choppers Salon's. It was changed to Avenza Avenue's own location, `locations/1215093275853877147`. When linking a Google grant, check that each project picks its own location.
 
 **Caption style used (2026-10-02, 23 posts)**
-- Structure, in English: hook line, body, CTA line on its own, contact block (📞 📍 🌐 📧 lines), 4–5 hashtags.
+- Structure, in English: hook line, body, CTA line on its own, contact block, 4–5 hashtags.
+- **Since 2026-11-02: no emojis at all.** Write "Call:", "Location:", "Web:", "Email:" instead of 📞 📍 🌐 📧. See [[feedback-captions-no-emojis]].
 - `gbpCaption` drops the CTA line and the contact block for Google (rule 26de402: "CTA nai jana chaiye").
 - Jummah posts: short dua, brand sign-off, no contact block.
 
@@ -97,3 +98,16 @@ Related: [[instagram-login-connect]], [[gbp-reply-queue]].
 - Flagged to Shoaib (2026-10-22): three Eventia posts share the headline "From Vision to Execution" (26 Oct, 28 Oct, 1 Nov). The designs differ and each has its own caption, so they were scheduled. No answer on asking the designer to change them.
 - Open (2026-10-22): for the held 31 Oct duplicate of Avenza Land 29.png, either email Fatima or ask for a new post. Shoaib hasn't said which.
 - 2026-10-23: the Avalon and Eventia Stories failed on a Facebook checkpoint. They went out after Shoaib reconnected the second login.
+
+**2026-11-02: Danish 85–92 (2–10 Nov) captioned and scheduled.** Shoaib: "jinky caption nai hain likh ker shedule ker do".
+- Fatima uploaded them on 31 Oct with no caption. Today's 85.png had been stuck since 10 AM.
+- Times:
+  - 3:30 PM PKT on regular days.
+  - Friday 6 Nov Jummah (92.png) at **10:30 AM**: Avenza Land is at 10:00, Avalon at 10:15 and Choppers Salon at 11:00.
+- **Headline reuse:** the Danish designer repeats taglines. "Quality Construction Timeless Results" ran 25 Sep and 12 Oct, "Creating Foundations…" ran 11 Oct, "Where Vision Meets Construction" ran 22 Oct, and "Strong Foundations Exceptional Futures" ran 1 Nov.
+  - Each time the design was new.
+  - Captions use a fresh hook so the text doesn't repeat word for word.
+- **How to check old designs once storage is cleared:** a posted row's media is deleted after the Facebook check (S3 NoSuchKey).
+  - Get the IG permalinks from `social_get_insights` (days 28/90, postLimit 25).
+  - Download `https://www.instagram.com/p/<shortcode>/media/?size=l` (public, no token).
+  - Compare 64×80 grayscale thumbnails with sharp. A different design scored a mean diff above 30. Script: scratchpad `danish-ig-compare.cjs`.

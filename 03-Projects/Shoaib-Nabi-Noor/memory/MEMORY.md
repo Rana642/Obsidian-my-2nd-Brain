@@ -63,6 +63,7 @@
 ## Post content + design rules (ALL projects)
 - [Content is ours](feedback-content-ours.md) — every post word + caption approved in KB before design; design AI never writes words
 - [Plain English default](feedback-plain-english.md) — simple English for all client content (Pakistani audience) unless he says otherwise
+- [No emojis in captions](feedback-captions-no-emojis.md) — 11-02: never any emoji in captions, all projects; professional; KB rule captions-no-emojis
 - [No "dealer" word](feedback-no-dealer-word.md) — never "dealer", any project; always "distributor" / "Become a Distributor"
 - [Arabic/Urdu typing](feedback-arabic-urdu-typing.md) — may type authentic native Arabic/Urdu copy; no machine translation; Quran/hadith from verified_texts
 - [Social posts: locked vs free](feedback-social-post-locked-vs-free.md) — lock only content, logo, real product, footer, colours; vet line only on product posts
