@@ -1,3 +1,6 @@
 # Obsidian per-device workspace state (don't sync — differs per machine)
 .obsidian/workspace.json
 .obsidian/workspace-mobile.json
+
+# graphify knowledge graph outputs (generated locally)
+graphify-out/
