@@ -7,7 +7,7 @@ and always bumps the checked date even when nothing changed.
 
 ## Meta Ads (Advertising Standards)
 **Source:** https://transparency.meta.com/policies/ad-standards/
-**Checked:** 2026-11-16
+**Checked:** 2026-11-23
 
 Meta reviews every ad against Advertising Standards (separate from, and in
 addition to, Community Standards). Core principles: no discrimination, no
@@ -21,7 +21,7 @@ account, not just one ad. Appeal through Account Quality.
 
 ## Meta developer platform (Platform Terms + Developer Policies)
 **Source:** https://developers.facebook.com/devpolicy ; https://developers.facebook.com/docs/marketing-api/get-started/authorization
-**Checked:** 2026-11-16
+**Checked:** 2026-11-23
 
 All apps, any access level, must follow Platform Terms + Developer
 Policies — calls run against real production data except in explicit
@@ -33,7 +33,7 @@ limiting, separate from general Graph API limits.
 
 ## Google Ads policies (advertiser-facing)
 **Source:** https://support.google.com/adspolicy/answer/6008942
-**Checked:** 2026-11-16
+**Checked:** 2026-11-23
 
 Four broad areas: prohibited content (counterfeit, dangerous
 products/services, misrepresentation), prohibited practices (misleading
@@ -51,7 +51,7 @@ accepted for decisions older than 6 months (since Jul 2026).
 
 ## Google Ads API developer policy (access levels + RMF)
 **Source:** https://developers.google.com/google-ads/api/docs/access-levels ; https://support.google.com/adspolicy/answer/6169371
-**Checked:** 2026-11-16
+**Checked:** 2026-11-23
 
 Access levels: Test account → Basic (production accounts, daily limits) →
 Standard (unlimited daily ops for most services). At Standard access,
